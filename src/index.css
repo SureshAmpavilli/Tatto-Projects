@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────── Glass Helpers ───────────── */
+.glass-navbar {          /* header background */
+  @apply backdrop-blur-md bg-white/50 dark:bg-black/30 shadow-md text-black dark:text-white;
+}
+.glass-btn {             /* frosted buttons */
+  @apply backdrop-blur-sm bg-white/30 dark:bg-black/30
+         border border-white/20 dark:border-white/10
+         transition;
+}
+.glass-btn:hover {
+  @apply bg-white/40 dark:bg-black/40;
+}
+
+/* ───────────── Time‑picker Enlarged ─────── */
+.rmdp-container .rmdp-time-picker { font-size: 1.2rem; }
+.rmdp-container .rmdp-time-picker input {
+  font-size: 1.2rem !important; padding: .5rem 1rem !important;
+  width: 60px !important; height: 45px !important; text-align: center;
+}
+.rmdp-container .rmdp-am,
+.rmdp-container .rmdp-pm {
+  font-size: 1.1rem !important; padding: .5rem 1rem !important;
+  width: 70px; margin-top:.5rem; border-radius:6px; text-align:center;
+}
+
+/* Dark‑theme fixes */
+.dark .rmdp-container .rmdp-time-picker      { background:#000;color:#fff; }
+.dark .rmdp-container .rmdp-time-picker input{ background:#111;color:#fff;border:1px solid #444;}
+.dark .rmdp-container .rmdp-am,
+.dark .rmdp-container .rmdp-pm               { background:#000;color:#fff;border:1px solid #444; }
+
+/* ───────────── Optional Hero Text Bounce ── */
+@keyframes bounceRubber {
+  0% {transform:scale(1);} 30%{transform:scale(1.25);}
+  45%{transform:scale(.9);} 60%{transform:scale(1.1);}
+  75%{transform:scale(.95);}100%{transform:scale(1);}
+}
+.bounce-text { animation:bounceRubber 2s infinite; }
