@@ -9,7 +9,7 @@ const ProfileBrowser = () => {
 
   const categories = [
     {
-      title: "Mother Tongue",
+      title: "Selected Languages",
       options: ["Bihari", "Bengali", "Hindi Delhi", "Hindi", "Gujarati", "Kannada", "Malayalam", "Marathi", "Oriya", "Punjabi", "Rajasthani", "Tamil", "Telugu", "Hindi UP", "Hindi MP", "Konkani", "Himachali", "Haryanvi", "Assamese", "Kashmiri", "Sikkim Nepali", "Tulu"]
     },
    {
@@ -44,10 +44,7 @@ const ProfileBrowser = () => {
 },
 
 
-    {
-      title: "City",
-      options: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Ahmedabad", "Surat", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Indore", "Thane", "Bhopal", "Visakhapatnam", "Patna"]
-    },
+ 
    {
   title: "Occupation",
   options: [
@@ -69,6 +66,10 @@ const ProfileBrowser = () => {
     {
       title: "State",
       options: ["Maharashtra", "Delhi", "Karnataka", "Tamil Nadu", "West Bengal", "Gujarat", "Rajasthan", "Uttar Pradesh", "Madhya Pradesh", "Punjab", "Haryana", "Bihar", "Odisha", "Kerala", "Assam"]
+    },
+       {
+      title: "City",
+      options: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Ahmedabad", "Surat", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Indore", "Thane", "Bhopal", "Visakhapatnam", "Patna"]
     },
     {
       title: "NRI",

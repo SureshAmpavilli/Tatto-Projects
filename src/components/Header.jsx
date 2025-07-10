@@ -162,9 +162,10 @@ const Header = () => {
             )}
           </div>
 
-          <span onClick={() => scrollToSection("about")} className={navLink}>About</span>
+        
           <span onClick={() => scrollToSection("connect")} className={navLink}>Blog</span>
-          <span onClick={() => scrollToSection("connect")} className={navLink}>Connect</span>
+            <span onClick={() => scrollToSection("about")} className={navLink}>About</span>
+          <span onClick={() => scrollToSection("connect")} className={navLink}>Help</span>
         </nav>
 
         {/* Desktop actions */}

@@ -89,9 +89,9 @@ const Register = () => {
   {/* Right Section - Image */}
   <div>
     <img
-      src="/E-Advocate.png"
+      src="../../public/advocate_logo_page2.png"
       alt="Advocate"
-      className="h-[450px] w-[400px] object-contain invert-0 dark:invert dark:mt-2"
+      className="h-[650px] w-[600px] object-contain invert-0 dark:invert dark:mt-2"
     />
     
   </div>
