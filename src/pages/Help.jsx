@@ -22,7 +22,7 @@ const HelpPage = () => {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-2 flex items-center">
-                <Phone className="w-5 h-5 mr-2 text-green-600 dark:text-green-400" /> Call Us
+                <Phone className="w-5 h-5 mr-2 text-green-600 dark:text-green-300" /> Call Us
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
                 Toll-Free: <strong>1800-XXX-XXXX</strong><br />
