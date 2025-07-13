@@ -16,51 +16,134 @@ const RefundPolicyPage = () => {
             conditions under which a user may request a refund, how requests are processed, and exceptions that apply.
           </p>
 
-          <h2 className="text-xl font-semibold mb-2">1. Eligibility for Refund</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>No consultation was conducted after confirmed payment.</li>
-            <li>The advocate failed to join a scheduled appointment without prior notice.</li>
-            <li>Duplicate payments due to technical issues.</li>
-            <li>Non-delivery of promised service due to platform error.</li>
-          </ul>
-
-          <h2 className="text-xl font-semibold mb-2">2. Non-Refundable Situations</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>Completed consultations, even if you disagreed with the legal advice.</li>
-            <li>Delay in response from the advocate unless clearly unreasonable.</li>
-            <li>Change of mind or personal dispute with the advocate.</li>
-            <li>Refund requests made after 7 days from transaction date.</li>
-          </ul>
-
-          <h2 className="text-xl font-semibold mb-2">3. How to Request a Refund</h2>
-          <p className="mb-4">You can submit a refund request through:</p>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>Dashboard → My Orders → Request Refund</li>
-            <li>Emailing <a href="mailto:support@advocateservices.com" className="text-blue-600 dark:text-blue-400 underline">support@advocateservices.com</a></li>
-            <li>Calling our toll-free line: <strong>1800-XXX-XXXX</strong></li>
-          </ul>
-
-          <h2 className="text-xl font-semibold mb-2">4. Refund Processing Timeline</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>Refund review and confirmation within 5–7 working days</li>
-            <li>Processed to your original payment method within 7–10 working days</li>
-            <li>You will receive email confirmation of the refund</li>
-          </ul>
-
-          <h2 className="text-xl font-semibold mb-2">5. Dispute Resolution</h2>
-          <p className="mb-4">
-            In case of refund disputes, the matter will be reviewed by our internal support team and, if required, the Grievance Officer.
-            Their decision will be final.
+          <h2 className="text-xl font-semibold mb-2">1. Overview</h2>
+           <p className="mb-4">
+         At E-Advocate Services, we strive to ensure that our platform serves users ethically and professionally. This Refund Policy explains the terms and conditions under which users (clients or advocates) may be eligible for a refund for services, subscriptions, or plans offered through the platform.
           </p>
+         
 
-          <h2 className="text-xl font-semibold mb-2">6. Contact Support</h2>
+          <h2 className="text-xl font-semibold mb-2">2. Scope of Refunds</h2>
+          <p className='mb-4'>This policy applies to payments made through:</p>
+          <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>Subscription plans for premium features (e.g., visibility tools for advocates)</li>
+            <li>One-time fees for booking consultations via the platform
+.</li>
+            <li>Verified profile upgrades or listings</li>
+            <li>Note: E-Advocate Services does not charge any fee for basic account registration or free usage features.</li>
+          </ul>
+
+          <h2 className="text-xl font-semibold mb-2">3. Eligibility Criteria for Refunds</h2>
+          <p className="mb-4">Refunds may be considered under the following circumstances:</p>
+            <h3 className='text-[18px] font-medium mb-2'>✅ Technical Errors</h3>
+          <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>Payment deducted but service not activated
+</li>
+            <li>Duplicate payment due to system fault</li>
+            <li>Failure in transaction processing within our system</li>
+          </ul>
+
+           <h3 className='text-[18px] font-medium mb-2'>✅ Service Not Delivered</h3>
+          <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>If a booked consultation is not fulfilled by the advocate and not rescheduled
+</li>
+            <li>Advocate was suspended or blocked due to BCI violation or platform fraud</li>
+          </ul>
+
+
+           <h3 className='text-[18px] font-medium mb-2'>✅ Unauthorized Transactions</h3>
+          <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>If your account was accessed and charged without your consent (subject to investigation and proof)
+</li>
+          
+          </ul>
+
+
+
+
+
+          <h2 className="text-xl font-semibold mb-2">4. Non-Refundable Situations</h2>
+              <p className='mb-4'>Refunds will not be granted under the following:</p>
+          <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>❌ User changes mind after payment</li>
+            <li>❌ Services were successfully rendered (e.g., consultation completed)
+</li>
+            <li>❌ Complaints made beyond 7 days of payment
+</li>
+ <li>❌ Payments made outside the platform (e.g., direct cash or UPI to advocate)
+
+</li>
+ <li>❌ Subscription benefits used before refund request
+</li>
+          </ul>
+
+          <h2 className="text-xl font-semibold mb-2">5. Refund Request Process</h2>
+          <h3 className='text-[18px] font-medium mb-2'>To request a refund:</h3>
+         
+
+  <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>Full Name</li>
+            <li>Registered Email / Mobile
+</li>
+            <li>Payment Receipt or Transaction ID
+</li>
+ <li>Reason for refund request
+
+</li>
+ <li>Refunds must be requested within 7 days of the original transaction.
+</li>
+
+<li>Our team will verify the claim and respond within 5–7 working days.
+</li>
+          </ul>
+
+
+
+
+
+          <h2 className="text-xl font-semibold mb-2">6. Refund Timeline</h2>
           <p className="mb-6">
-            For any refund-related concerns, please contact:<br />
-            <a href="mailto:support@advocateservices.com" className="text-blue-600 dark:text-blue-400 underline">
-              support@advocateservices.com
-            </a><br />
-            Phone: <strong>1800-XXX-XXXX</strong>
+           Approved refunds will be processed within 7–10 working days
+
+Refunds will be returned to the original payment method (e.g., card, UPI, wallet)
           </p>
+
+           <h2 className="text-xl font-semibold mb-2">7. Legal & Ethical Compliance</h2>
+          <p className="mb-6">
+           This policy is crafted to align with:
+          </p>
+
+            <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>Consumer Protection Act, 2019
+</li>
+            <li>Bar Council of India Rules, including Rule 36 prohibiting legal service advertising
+</li>
+            <li>Ethical and transparent fee handling between clients and legal professionals
+
+</li>
+ 
+
+          </ul>
+
+
+
+           <h2 className="text-xl font-semibold mb-2">8. Contact for Refunds</h2>
+            <ul className="list-disc pl-5 mb-4 space-y-1">
+            <li>📧 Email: refunds@eadvocateservices.in
+</li>
+            <li>📞 Support: +91-XXXXXXXXXX
+</li>
+           
+
+          </ul>
+          <p className="mb-6">
+          Would you like this content exported as a Word or PDF document for your website or policy page?
+          </p>
+
+
+
+
+
+
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
             © {new Date().getFullYear()} AdvocateServices.com – All rights reserved.

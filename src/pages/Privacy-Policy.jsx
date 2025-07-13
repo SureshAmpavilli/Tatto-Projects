@@ -4,100 +4,124 @@ import Footer from '../components/Footer';
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="">
+    <div className="bg-gray-100 dark:bg-black text-gray-800 dark:text-gray-200">
       <Header />
 
-      <div className="min-h-screen py-10 px-4">
+      <main className="min-h-screen py-10 px-4">
         <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-lg rounded-lg p-8">
-          <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
+          <h1 className="text-3xl font-bold mb-6">Privacy Policy – E-Advocate Services</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Last Updated: [Insert Date]</p>
 
-          <p className="mb-4">
-            AdvocateServices.com (“we”, “us”, or “our”) respects your privacy and is committed to protecting your personal information.
-            This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use our platform, services,
-            or mobile application.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">1. Introduction</h2>
+            <p>
+              E-Advocate Services is committed to protecting your privacy. This Privacy Policy outlines how we collect,
+              use, and protect your data in compliance with Indian IT laws and Bar Council of India (BCI) norms. By accessing
+              our website or mobile app, you agree to the terms of this policy.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">1. Information We Collect</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li><strong>Personal Information:</strong> Name, email, phone number, ID proof, professional qualifications, etc.</li>
-            <li><strong>Account Information:</strong> Login data, payment preferences, settings.</li>
-            <li><strong>Usage Data:</strong> Pages visited, device information, IP address, location.</li>
-            <li><strong>Case & Legal Info:</strong> If submitted by users for consultation purposes.</li>
-          </ul>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">2. Data Collection</h2>
+            <p>
+              We collect personal data including name, contact details, email, Bar Council ID (for advocates), profile details,
+              and legal needs (for clients). This information is collected during registration, profile setup, and while using
+              the platform.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">2. How We Use Your Information</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>To verify and onboard advocates</li>
-            <li>To enable secure advocate-client communication</li>
-            <li>To process payments and transactions</li>
-            <li>To monitor and improve platform performance</li>
-            <li>To comply with legal and regulatory obligations</li>
-          </ul>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">3. Use of Information</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>Create user profiles (Advocate/Client)</li>
+              <li>Facilitate matching and communication</li>
+              <li>Provide location-based legal services</li>
+              <li>Verify professional credentials (BCI ID verification)</li>
+              <li>Improve app functionality and user experience</li>
+            </ul>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">3. Cookies and Tracking Technologies</h2>
-          <p className="mb-4">
-            We use cookies and similar technologies to personalize content, analyze traffic, and enhance your experience.
-            You can manage cookie preferences in your browser. Read our full <a href="/cookie-policy" className="text-blue-600 dark:text-blue-400 underline">Cookie Policy</a>.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">4. Data Sharing & Disclosure</h2>
+            <p>
+              E-Advocate Services does not share your data with any third-party without explicit consent, except:
+            </p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>To comply with legal obligations</li>
+              <li>When required by court orders or Bar Council requests</li>
+              <li>For internal audits and security assessments</li>
+            </ul>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">4. Data Sharing & Disclosure</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>With advocates or clients you engage with</li>
-            <li>With third-party service providers (e.g., payment gateways, hosting)</li>
-            <li>To comply with law enforcement or court orders</li>
-            <li>To prevent fraud or illegal activities</li>
-          </ul>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">5. Advocate Compliance with BCI</h2>
+            <p>
+              All advocate data is collected, verified, and displayed in accordance with BCI rules. No promotional, misleading,
+              or advertising content is allowed under Rule 36 of the BCI Rules.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">5. Data Security</h2>
-          <p className="mb-4">
-            We implement industry-standard security measures such as SSL encryption, access control, and regular audits to protect your data.
-            However, no method of transmission is 100% secure.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">6. User Rights</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>Access their data</li>
+              <li>Edit/update their profile</li>
+              <li>Request deletion of their account</li>
+              <li>Opt out of non-essential communications</li>
+            </ul>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">6. Your Rights</h2>
-          <ul className="list-disc pl-5 mb-4 space-y-1">
-            <li>Access, update or delete your personal information</li>
-            <li>Withdraw consent for processing</li>
-            <li>Request a copy of your data in portable format</li>
-          </ul>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">7. Security Measures</h2>
+            <p>
+              We use SSL encryption, secure databases, and restricted access policies to protect user data.
+              Passwords are encrypted and sensitive data is not stored beyond required durations.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">7. Data Retention</h2>
-          <p className="mb-4">
-            We retain your information for as long as your account is active or as needed to fulfill our legal obligations,
-            enforce agreements, or resolve disputes.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">8. Cookies & Tracking</h2>
+            <p>
+              We use minimal cookies for user session tracking and app analytics. No personal data is stored in cookies.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">8. Children’s Privacy</h2>
-          <p className="mb-4">
-            Our services are not intended for individuals under the age of 18. We do not knowingly collect personal data from minors.
-            If we become aware, we will delete it promptly.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">9. Children's Privacy</h2>
+            <p>
+              Our services are not intended for users under 18 years of age.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">9. International Transfers</h2>
-          <p className="mb-4">
-            Your data may be stored or processed in servers located outside your country. We ensure appropriate safeguards
-            are in place to comply with applicable data protection laws.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">10. Updates to Policy</h2>
+            <p>
+              We may update this Privacy Policy periodically. Users will be notified of any significant changes.
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">10. Updates to This Policy</h2>
-          <p className="mb-4">
-            We may revise this Privacy Policy at any time. Changes will be posted on this page with an updated revision date.
-            Continued use of the platform signifies acceptance of the updated policy.
-          </p>
+          <section>
+            <h2 className="text-xl font-semibold mb-2">11. Contact Us</h2>
+            <p>
+              For any privacy-related queries, contact us at:
+              <br />
+              Email:{' '}
+              <a
+                href="mailto:support@eadvocateservices.in"
+                className="text-blue-600 dark:text-blue-400 underline"
+              >
+                support@eadvocateservices.in
+              </a>
+              <br />
+              Phone: +91-XXXXXXXXXX
+            </p>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-2">11. Contact Us</h2>
-          <p className="mb-6">
-            If you have questions or concerns regarding this Privacy Policy, contact us at:<br />
-            <a href="mailto:privacy@advocateservices.com" className="text-blue-600 dark:text-blue-400 underline">
-              privacy@advocateservices.com
-            </a>
-          </p>
-
-          <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
-            © {new Date().getFullYear()} AdvocateServices.com – All rights reserved.
+          <div className="text-center text-xs text-gray-500 dark:text-gray-400 mt-10">
+            © {new Date().getFullYear()} E-Advocate Services – All rights reserved.
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

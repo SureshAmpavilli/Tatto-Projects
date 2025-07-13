@@ -57,6 +57,7 @@ const icons = [
         Site Map
       </Link>
     </li>
+     
     <li>
       <Link to="/create-blog" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
         Create Blog
@@ -91,21 +92,13 @@ const icons = [
        <div>
   <h4 className="text-lg font-semibold mb-2">For Advocates</h4>
   <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
-    <li>
-      <Link to="/join" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
-        Join Platform
-      </Link>
-    </li>
+    
     <li>
       <Link to="/find-clients" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
         Find Clients
       </Link>
     </li>
-    <li>
-      <Link to="/pricing" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
-        Pricing
-      </Link>
-    </li>
+   
     <li>
       <Link to="/success-stories" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
         Success Stories
@@ -123,21 +116,13 @@ const icons = [
         Find Advocates
       </Link>
     </li>
-    <li>
-      <Link to="/legal-resources" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
-        Legal Resources
-      </Link>
-    </li>
+   
     <li>
       <Link to="/howitworks" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
         How it Works
       </Link>
     </li>
-    <li>
-      <Link to="/support" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
-        Support
-      </Link>
-    </li>
+   
   </ul>
 </div>
 

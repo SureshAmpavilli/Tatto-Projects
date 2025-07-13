@@ -4,94 +4,110 @@ import Footer from '../components/Footer';
 
 const FraudAlertPage = () => {
   return (
-    <div className="">
+    <div className="bg-gray-100 dark:bg-black text-gray-800 dark:text-gray-200">
       <Header />
 
-      <div className="min-h-screen py-10 px-4">
-        <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-lg rounded-lg p-8 ">
-          <h1 className="text-3xl font-bold mb-6">Fraud Alerts</h1>
+      <main className="min-h-screen py-10 px-4">
+        <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-lg rounded-lg p-8">
+          <h1 className="text-3xl font-bold mb-2">⚠️ Fraud Alert – E‑Advocate Services</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Last Updated: [Insert Date]</p>
 
-          <p className="mb-4">
-            At AdvocateServices.com, your safety is our top priority. We are committed to building a secure and trustworthy
-            legal platform where clients and verified advocates can connect with confidence.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">1. Introduction</h2>
+            <p className="text-gray-700 dark:text-gray-300">
+              E‑Advocate Services is committed to ensuring a safe and trustworthy platform for clients and legal professionals.
+              This Fraud Alert policy outlines the types of fraud we guard against, user responsibilities, and actions we take 
+              to comply with Bar Council of India (BCI) norms and the Advocates Act, 1961.
+            </p>
+          </section>
 
-          <p className="mb-6">
-            While we employ several security measures, we strongly advise our users to exercise personal caution and follow
-            these guidelines when using our website or mobile application.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">2. Zero Tolerance Policy</h2>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>Misrepresentation of identity or credentials</li>
+              <li>Unauthorized practice of law</li>
+              <li>Collection of fees without offering services</li>
+              <li>Impersonating an advocate or client</li>
+              <li>Soliciting or advertising legal services in violation of BCI Rule 36</li>
+            </ul>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-4">⚠️ Protect Yourself From Fraudulent Activities</h2>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">3. Advocate Verification</h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-2">
+              All advocates on our platform must:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>Provide a valid Bar Council of India registration ID</li>
+              <li>Upload a copy of their Bar Certificate</li>
+              <li>Be verified by our internal team before profile approval</li>
+            </ul>
+            <p className="text-gray-700 dark:text-gray-300 mt-2">
+              Fake or fraudulent profiles are rejected or removed immediately.
+            </p>
+          </section>
 
-          <ul className="list-disc pl-5 space-y-4 mb-6">
-            <li>
-              <strong>Beware of Fake Advocate Profiles:</strong> If any user provides false information about their legal
-              qualifications, years of experience, bar registration, or practice location, please report the profile
-              immediately using the “Report Abuse” option.
-            </li>
-            <li>
-              <strong>Do Not Share Personal or Financial Information:</strong> Never disclose sensitive data like your Aadhar
-              number, bank account details, PAN, passwords, or case documents unless absolutely sure of the advocate’s
-              authenticity. AdvocateServices will <strong>never</strong> ask for your password, OTP, or PIN through email, SMS, or phone.
-            </li>
-            <li>
-              <strong>Avoid Unofficial Payments:</strong> Do not send money or fees to advocates outside the AdvocateServices
-              payment system. All transactions should be processed through our secure payment gateway.
-            </li>
-            <li>
-              <strong>Be Alert to Phishing and Lookalike Websites:</strong> Only trust URLs that begin with
-              <span className="text-blue-600 dark:text-blue-400"> https://www.advocateservices.com</span>. If in doubt, contact our support.
-            </li>
-            <li>
-              <strong>Watch Out for Fake Phone Calls or Emails:</strong> Fraudsters may impersonate our team. We only
-              communicate from official domains (<em>@advocateservices.com</em>).
-            </li>
-            <li>
-              <strong>Conduct Safe Meetings:</strong> Always meet in public locations or the advocate’s verified office and
-              inform someone close about the meeting.
-            </li>
-          </ul>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">4. Client Awareness Guidelines</h2>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>Always check the advocate’s verified badge and profile</li>
+              <li>Never make payments outside the app or without official invoices</li>
+              <li>Report any suspicious behavior or fraudulent request immediately</li>
+              <li>Avoid sharing confidential information before verification</li>
+            </ul>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-4">🛡️ Report Suspicious Behavior</h2>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">5. Reporting Suspicious Activity</h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-2">
+              Users can report fraud or suspicious activity via:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>Email: <a href="mailto:report@eadvocateservices.in" className="text-blue-600 dark:text-blue-400 underline">report@eadvocateservices.in</a></li>
+              <li>In‑app report button on advocate/client profile</li>
+            </ul>
+            <p className="text-gray-700 dark:text-gray-300 mt-2">
+              All reports are confidential and investigated within 24–48 hours.
+            </p>
+          </section>
 
-          <p className="mb-4">
-            If you encounter any of the following, report to us immediately:
-          </p>
-          <ul className="list-disc pl-5 space-y-3 mb-6">
-            <li>Advocates requesting payment in exchange for guaranteed legal outcomes.</li>
-            <li>Attempts to sell or promote services unrelated to legal consultation.</li>
-            <li>Profiles with fake photographs or plagiarized content.</li>
-            <li>Communication containing threats, harassment, or coercion.</li>
-          </ul>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">6. Platform Action</h2>
+            <p className="text-gray-700 dark:text-gray-300">
+              On identification of fraud, we may:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>Suspend or permanently ban accounts</li>
+              <li>Report the user to appropriate legal authorities</li>
+              <li>Notify the Bar Council of India or relevant State Bar Council</li>
+            </ul>
+          </section>
 
-          <p className="mb-4">
-            <strong>Contact us:</strong><br />
-            Email: <a href="mailto:support@advocateservices.com" className="text-blue-600 dark:text-blue-400 underline">support@advocateservices.com</a><br />
-            Phone: <span className="font-medium">1800-XXX-XXXX</span> (Toll-Free)<br />
-            Use the <strong>"Report Profile"</strong> button on any user page.
-          </p>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">7. Legal Consequences</h2>
+            <p className="text-gray-700 dark:text-gray-300">
+              Engaging in fraud through the E‑Advocate Services platform may result in:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>Legal action under the Indian Penal Code (IPC)</li>
+              <li>Disciplinary proceedings under the Advocates Act</li>
+              <li>Bar Council disqualification or license cancellation</li>
+            </ul>
+          </section>
 
-          <h2 className="text-xl font-semibold mb-4">✅ What We Do to Keep You Safe</h2>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">8. Our Commitment</h2>
+            <p className="text-gray-700 dark:text-gray-300">
+              We strive to maintain transparency, safety, and legal compliance on our platform. Fraud prevention is a shared 
+              responsibility between users and the E‑Advocate Services team.
+            </p>
+          </section>
 
-          <ul className="list-disc pl-5 space-y-3 mb-6">
-            <li>Every advocate is required to submit identity and license proof.</li>
-            <li>Our platform uses secure encryption to protect your data.</li>
-            <li>Regular audits and manual profile checks are conducted.</li>
-            <li>We act swiftly on reports of misconduct or fraud.</li>
-          </ul>
-
-          <h2 className="text-xl font-semibold mb-4">👥 User Responsibility</h2>
-
-          <p className="mb-6">
-            Your safety is a shared responsibility. Always use your best judgment when interacting with others. If something
-            feels wrong — it probably is. Stay cautious, verify before you trust, and when in doubt, ask us.
-          </p>
-
-          <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
-            © {new Date().getFullYear()} AdvocateServices.com – All rights reserved.
+          <div className="text-center text-xs text-gray-500 dark:text-gray-400 mt-8">
+            &copy; {new Date().getFullYear()} E‑Advocate Services – All rights reserved.
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>
