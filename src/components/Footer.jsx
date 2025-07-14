@@ -26,12 +26,22 @@ const icons = [
     <footer className="bg-gray-100 dark:bg-black text-black dark:text-white py-12 px-2 shadow-lg">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Column 1 */}
-        <div>
-          <h3 className="text-xl font-bold mb-2">E‑Advocate Services</h3>
-          <p className="text-sm text-gray-700 dark:text-gray-300">
-            India&apos;s premier legal matchmaking platform connecting advocates and clients.
-          </p>
-        </div>
+      <div className="flex flex-col items-start">
+  <div className="flex flex-row items-center">
+    <img
+      src="/Advocate-Logo.png"
+      alt="Advocate Logo"
+      className="h-[70px] w-[200px] object-contain invert-0 dark:invert -mt-[1px] ml-[-50px]"
+    />
+    <span className=" font-bold text-2xl mb-2 w-[500px]  ml-[-20px]">E‑Advocate Services</span>
+  </div>
+  <p className="text-sm text-gray-700 dark:text-gray-300 mt-5">
+    India&apos;s premier legal matchmaking platform connecting advocates and clients.
+  </p>
+</div>
+
+
+
 
 
          <div>
@@ -85,6 +95,11 @@ const icons = [
         Careers
       </Link>
     </li>
+    <li>
+      <Link to="/howitworks" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
+        How it works
+      </Link>
+    </li>
   </ul>
 </div>
 
@@ -100,8 +115,8 @@ const icons = [
     </li>
    
     <li>
-      <Link to="/success-stories" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
-        Success Stories
+      <Link to="/advocate_works" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
+      How It Works
       </Link>
     </li>
   </ul>
@@ -118,7 +133,7 @@ const icons = [
     </li>
    
     <li>
-      <Link to="/howitworks" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
+      <Link to="/client_works" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
         How it Works
       </Link>
     </li>
@@ -206,8 +221,29 @@ const icons = [
 
 
       </div>
+      <div className="overflow-hidden bg-black dark:bg-white py-4 mt-5">
+  <h1 className="text-center text-white dark:text-black text-2xl font-semibold mb-4 mt-[-4px] text-[30px] fontweight-[600]">
+   Our Partners
+  </h1>
+  <div className="whitespace-nowrap inline-block animate-marquee">
+    <img src="/por.png" alt="Partner 1" className="h-12 inline mx-8" />
+    <img src="/por1.png" alt="Partner 2" className="h-12 inline mx-8" />
+    <img src="/por2.png" alt="Partner 3" className="h-12 inline mx-8" />
+    <img src="/por4.png" alt="Partner 4" className="h-12 inline mx-8" />
+    <img src="/por5.png" alt="Partner 5" className="h-12 inline mx-8" />
 
-    <div className="bg-gray-200 dark:bg-zinc-800 text-black dark:text-white py-6 px-4 transition-colors duration-300 mt-5">
+    {/* Repeat for seamless loop */}
+    <img src="/por.png" alt="Partner 1" className="h-12 inline mx-8" />
+    <img src="/por1.png" alt="Partner 2" className="h-12 inline mx-8" />
+    <img src="/por2.png" alt="Partner 3" className="h-12 inline mx-8" />
+    <img src="/por4.png" alt="Partner 4" className="h-12 inline mx-8" />
+    <img src="/por5.png" alt="Partner 5" className="h-12 inline mx-8" />
+  </div>
+</div>
+
+
+
+    <div className="bg-gray-200 dark:bg-zinc-800 text-black dark:text-white py-6 px-4 transition-colors duration-300 mt-0">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* App Section */}

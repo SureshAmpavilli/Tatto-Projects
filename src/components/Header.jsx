@@ -94,14 +94,16 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between lg:h-[80px]">
         {/* Logo */}
         <Link to="/" className={logoLink}>
-          <div>
+        <div className="flex flex-row items-center">
   <img
-  src="/advocate_logo_page2.png"
-  alt="Advocate Logo"
-  className="h-[150px] w-[200px] object-contain invert-0 dark:invert dark:mt-2"
-/>
-
+    src="/Advocate-Logo.png"
+    alt="Advocate Logo"
+    className="h-[70px] w-[200px] object-contain invert-0 dark:invert -mt-[1px]"
+  />
+  <span className="ml-[-50px] text-lg font-semibold">E‑Advocate Services</span>
 </div>
+
+
 
         </Link>
 

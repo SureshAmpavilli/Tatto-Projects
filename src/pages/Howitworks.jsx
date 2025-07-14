@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 
 const clientSteps = [
   {
-    title: 'Step 1: Register as a Client',
+    title: '✅ Step 1: Register as a Client',
     points: [
       'Provide your basic details (Name, Email, Mobile Number, City)',
       'Choose your legal issue type (e.g., Property, Family, Criminal, etc.)',
@@ -12,7 +12,7 @@ const clientSteps = [
     ],
   },
   {
-    title: 'Step 2: Browse or Get Matched with Verified Advocates',
+    title: '✅ Step 2: Browse or Get Matched with Verified Advocates',
     points: [
       'Based on your location and issue type, the platform shows verified professionals',
       'No promotion or advertisement is used — only factual profiles',
@@ -20,7 +20,7 @@ const clientSteps = [
     ],
   },
   {
-    title: 'Step 3: Securely Contact the Advocate',
+    title: '✅ Step 3: Securely Contact the Advocate',
     points: [
       'Use the in-app messaging system to discuss your issue confidentially',
       'Schedule a consultation (telephonic, video, or in-person)',
@@ -28,7 +28,7 @@ const clientSteps = [
     ],
   },
   {
-    title: 'Step 4: Track, Save, and Rate Your Experience',
+    title: '✅ Step 4: Track, Save, and Rate Your Experience',
     points: [
       'Track consultation status',
       'View legal history and upload/download documents securely',
@@ -39,7 +39,7 @@ const clientSteps = [
 
 const advocateSteps = [
   {
-    title: 'Step 1: Register with Valid BCI Credentials',
+    title: '✅ Step 1: Register with Valid BCI Credentials',
     points: [
       'Upload Bar Council ID, certificate of practice, and identity proof',
       'Select Department (e.g., Civil, Criminal, Corporate) and languages',
@@ -47,14 +47,14 @@ const advocateSteps = [
     ],
   },
   {
-    title: 'Step 2: Get Discovered by Clients (No Ads or Boosts)',
+    title: '✅ Step 2: Get Discovered by Clients (No Ads or Boosts)',
     points: [
       'Your profile is shown neutrally based on the client’s need and city',
       'No boost, ranking, or visibility payment allowed as per Rule 36',
     ],
   },
   {
-    title: 'Step 3: Connect with Clients Securely',
+    title: '✅ Step 3: Connect with Clients Securely',
     points: [
       'Use the in-app chat or call option to offer advice',
       'Schedule consultations at your preferred timing',
@@ -62,7 +62,7 @@ const advocateSteps = [
     ],
   },
   {
-    title: 'Step 4: Access Dashboard for Leads, History, and Documents',
+    title: '✅ Step 4: Access Dashboard for Leads, History, and Documents',
     points: [
       'See appointment requests',
       'Upload legal opinions, draft files securely',
@@ -72,11 +72,11 @@ const advocateSteps = [
 ];
 
 const complianceMeasures = [
-  ['No Ads or Solicitation', 'Advocates are never promoted or ranked'],
-  ['Verified Advocate Listings Only', 'Only licensed advocates with valid BCI/State Bar IDs are approved'],
-  ['Ethical Content', 'No legal advice is published publicly'],
-  ['Neutral Client-Advocate Matching', 'Based on law type & region, not payment or promotion'],
-  ['Grievance & Reporting Tools', 'Users can report unethical behavior; we report to BCI if needed'],
+  ['✅ No Ads or Solicitation', 'Advocates are never promoted or ranked'],
+  ['✅ Verified Advocate Listings Only', 'Only licensed advocates with valid BCI/State Bar IDs are approved'],
+  ['✅ Ethical Content', 'No legal advice is published publicly'],
+  ['✅ Neutral Client-Advocate Matching', 'Based on law type & region, not payment or promotion'],
+  ['✅ Grievance & Reporting Tools', 'Users can report unethical behavior; we report to BCI if needed'],
 ];
 
 const HowItWorksPage = () => {
@@ -96,13 +96,13 @@ const HowItWorksPage = () => {
             ranking, or promotion of advocates.
           </p>
 
-          {/* Clients Section */}
+          {/* Clients section */}
           <h2 className="text-2xl font-semibold mb-4">👤 For Clients – Legal Help in 4 Simple Steps</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {clientSteps.map((step, idx) => (
               <div key={idx} className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                <ul className="list-disc ml-5 space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                <ul className="list-disc ml-5 text-gray-700 dark:text-gray-300 space-y-1 text-sm">
                   {step.points.map((point, i) => (
                     <li key={i}>{point}</li>
                   ))}
@@ -111,13 +111,13 @@ const HowItWorksPage = () => {
             ))}
           </div>
 
-          {/* Advocates Section */}
+          {/* Advocates section */}
           <h2 className="text-2xl font-semibold mt-10 mb-4">⚖️ For Advocates – Build Your Presence with Ethics</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {advocateSteps.map((step, idx) => (
               <div key={idx} className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow hover:shadow-md transition">
                 <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                <ul className="list-disc ml-5 space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                <ul className="list-disc ml-5 text-gray-700 dark:text-gray-300 space-y-1 text-sm">
                   {step.points.map((point, i) => (
                     <li key={i}>{point}</li>
                   ))}
@@ -126,7 +126,7 @@ const HowItWorksPage = () => {
             ))}
           </div>
 
-          {/* Compliance Table */}
+          {/* Compliance table */}
           <h2 className="text-2xl font-semibold mt-10 mb-4">🔐 How We Stay BCI-Compliant</h2>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-300 dark:border-gray-700 text-sm">
@@ -139,7 +139,7 @@ const HowItWorksPage = () => {
               <tbody className="divide-y divide-gray-300 dark:divide-gray-700">
                 {complianceMeasures.map(([feature, measure], idx) => (
                   <tr key={idx}>
-                    <td className="p-3">✅ {feature}</td>
+                    <td className="p-3">{feature}</td>
                     <td className="p-3">{measure}</td>
                   </tr>
                 ))}
@@ -147,20 +147,24 @@ const HowItWorksPage = () => {
             </table>
           </div>
 
-          {/* Transparency & Contact */}
+          {/* Transparency & help */}
           <h2 className="text-2xl font-semibold mt-10 mb-4">🔎 Transparency for Everyone</h2>
-          <ul className="list-disc ml-6 space-y-2 text-gray-700 dark:text-gray-300 mb-6">
+          <ul className="list-disc ml-6 text-gray-700 dark:text-gray-300 space-y-2 mb-6">
             <li>Clients: Access legal help with no hidden fees or influence</li>
             <li>Advocates: Build trust and visibility through professional, ethical service</li>
             <li>BCI: Full alignment with legal regulations and ethical practice standards</li>
           </ul>
 
           <h2 className="text-2xl font-semibold mb-4">🧑‍💼 Need Help?</h2>
-          <ul className="space-y-2 text-gray-700 dark:text-gray-300 mb-10">
-            <li>Email: <a href="mailto:support@eadvocateservices.in" className="underline text-blue-600 dark:text-blue-400">support@eadvocateservices.in</a></li>
-            <li>Phone: <a href="tel:+91XXXXXXXXXX" className="underline text-green-600 dark:text-green-400">+91-XXXXXXXXXX</a></li>
-            <li>Hours: Mon–Sat, 10:00 AM – 6:00 PM IST</li>
+          <ul className="text-gray-700 dark:text-gray-300 space-y-1 mb-10">
+            <li>📧 <a href="mailto:support@eadvocateservices.in" className="underline text-blue-600 dark:text-blue-400">support@eadvocateservices.in</a></li>
+            <li>📞 <a href="tel:+91XXXXXXXXXX" className="underline text-green-600 dark:text-green-400">+91-XXXXXXXXXX</a></li>
+            <li>🕐 Mon–Sat, 10:00 AM – 6:00 PM IST</li>
           </ul>
+
+          <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-4">
+            &copy; {new Date().getFullYear()} E-Advocate Services – All rights reserved.
+          </p>
         </div>
       </main>
 

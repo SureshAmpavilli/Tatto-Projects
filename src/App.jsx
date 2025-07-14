@@ -41,6 +41,8 @@ import AdvancedSearchPage from './pages/Advanced Search';
 import SiteMapPage from './pages/Site Map';
 import CreateBlogPage from './pages/Create blog';
 import AboutUsPage from './pages/About Us';
+import AdvocateWorks from './pages/Advocate_Works';
+import ClientWorks from './pages/Client_AdvocateWorks';
 
 
 // ✅ Layout to show Header only on Home page ("/")
@@ -92,6 +94,8 @@ function App() {
       <Route path="/site-map" element={<SiteMapPage />} />
       <Route path="/create-blog" element={<CreateBlogPage />} />
       <Route path="/about" element={<AboutUsPage />} />
+       <Route path="/advocate_works" element={<AdvocateWorks />} />
+       <Route path="/client_works" element={<ClientWorks />} />
   
 
           {/* Profile Layout and Nested Routes */}
