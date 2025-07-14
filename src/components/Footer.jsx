@@ -222,22 +222,37 @@ const icons = [
 
       </div>
       <div className="overflow-hidden bg-black dark:bg-white py-4 mt-5">
-  <h1 className="text-center text-white dark:text-black text-2xl font-semibold mb-4 mt-[-4px] text-[30px] fontweight-[600]">
-   Our Partners
+        <div className="flex flex-row space-x-64 text-center justify-center">
+  <h1 className="text-left text-white dark:text-black text-2xl font-semibold mb-4 mt-[-4px] text-[25px] fontweight-[600]">
+   Approved By:
   </h1>
+  <h1 className="text-left text-white dark:text-black text-2xl font-semibold mb-4 mt-[-4px] text-[25px] fontweight-[600]">
+   Partnership:
+  </h1>
+   <h1 className="text-left text-white dark:text-black text-2xl font-semibold mb-4 mt-[-4px] text-[25px] fontweight-[600]">
+   Collboration:
+  </h1>
+   <h1 className="text-left text-white dark:text-black text-2xl font-semibold mb-4 mt-[-4px] text-[25px] fontweight-[600]">
+   Assositation:
+  </h1>
+  </div>
   <div className="whitespace-nowrap inline-block animate-marquee">
     <img src="/por.png" alt="Partner 1" className="h-12 inline mx-8" />
     <img src="/por1.png" alt="Partner 2" className="h-12 inline mx-8" />
     <img src="/por2.png" alt="Partner 3" className="h-12 inline mx-8" />
+      <img src="/por3.png" alt="Partner 4" className="h-12 inline mx-8" />
     <img src="/por4.png" alt="Partner 4" className="h-12 inline mx-8" />
     <img src="/por5.png" alt="Partner 5" className="h-12 inline mx-8" />
+     <img src="/por6.jpg" alt="Partner 6" className="h-12 inline mx-8" />
 
     {/* Repeat for seamless loop */}
     <img src="/por.png" alt="Partner 1" className="h-12 inline mx-8" />
     <img src="/por1.png" alt="Partner 2" className="h-12 inline mx-8" />
     <img src="/por2.png" alt="Partner 3" className="h-12 inline mx-8" />
+      <img src="/por3.png" alt="Partner 4" className="h-12 inline mx-8" />
     <img src="/por4.png" alt="Partner 4" className="h-12 inline mx-8" />
     <img src="/por5.png" alt="Partner 5" className="h-12 inline mx-8" />
+     <img src="/por6.jpg" alt="Partner 6" className="h-12 inline mx-8" />
   </div>
 </div>
 
