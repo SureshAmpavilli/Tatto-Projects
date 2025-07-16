@@ -1,58 +1,479 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CreatableSelect from "react-select/creatable";
-import DatePicker from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import { format } from "date-fns";
 import { motion } from "framer-motion";
-import {
-  MdEmail,
-  MdLock,
-  MdVisibility,
-  MdVisibilityOff,
-} from "react-icons/md";
 import { FaUserShield } from "react-icons/fa";
+import Swal from 'sweetalert2';
+
 
 const RegisterAdvocate = () => {
   const navigate = useNavigate();
+  const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    mobile: "",
-    department: "",
-    experience: "",
-    barId: "",
-    profilePic: null,
-    certificates: null,
-    consultationFee: "",
-    officeAddress: "",
-    availabilityDates: [],
-    licenseDoc: null,
+    fullName: '',
+    gender: '',
+    dateOfBirth: '',
+    mobileNumber: '',
+    email: '',
+    aadharNumber: '',
+    profilePicture: null,
+    lawDegree: '',
+    universityName: '',
+    graduationYear: '',
+    enrolmentNumber: '',
+    stateBarCouncil: '',
+    enrollmentYear: '',
+    enrollmentCertificate: null,
+    yearsOfExperience: '',
+    specialization: '',
+    subSpecialization: '',
+    subDepartment: '',
+    location: '',
+    address: '',
+    careerInfo: '',
+    subscriptionPlan: '',
+    availableSlots: '',
+    password: '',
+    confirmPassword: '',
     termsAccepted: false,
+    workTypes: [],
+    otherWorkType: '',
+     languagesKnown: [],
+  otherLanguage: '',
+  subscriptions: [],
+  paymentModes: [],
+  otherPaymentMode: '',
+   courtOfPractice: [],
+  otherCourt: '',
+  barAssociation: '',
+   practiceLicense: null,
+   subDepartment: '',
+    availableFor: [],
+     availableDays: [],
+      declarations: [],
+  signature: '',
+  date: '',
   });
 
-  const [showPassword, setShowPassword] = useState(false);
+
+  const handleWorkTypeChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, workTypes: [...prev.workTypes, value] };
+    } else {
+      return {
+        ...prev,
+        workTypes: prev.workTypes.filter((type) => type !== value),
+      };
+    }
+  });
+};
+
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  setFormData((prev) => ({
+    ...prev,
+    practiceLicense: file,
+  }));
+};
+
+
+
+
+
+
+  // handle input changes
+ 
+
+const handleLanguagesChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, languagesKnown: [...prev.languagesKnown, value] };
+    } else {
+      return {
+        ...prev,
+        languagesKnown: prev.languagesKnown.filter((lang) => lang !== value),
+      };
+    }
+  });
+};
+
+const validateStep1 = () => {
+    const errors = {};
+
+    if (!formData.fullName.trim()) {
+      errors.fullName = "Full name is required";
+    }
+    if (!formData.gender) {
+      errors.gender = "Gender is required";
+    }
+    if (!formData.dateOfBirth) {
+      errors.dateOfBirth = "Date of birth is required";
+    }
+    if (!/^\d{10}$/.test(formData.mobileNumber)) {
+      errors.mobileNumber = "Mobile number must be 10 digits";
+    }
+    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = "Valid email is required";
+    }
+    if (!/^\d{12}$/.test(formData.aadharNumber)) {
+      errors.aadharNumber = "Aadhar number must be 12 digits";
+    }
+    if (!formData.profilePicture) {
+      errors.profilePicture = "Profile picture is required";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+
+  const validateStep2 = () => {
+  const errors = {};
+
+  if (!formData.lawDegree.trim()) {
+    errors.lawDegree = "Law degree is required";
+  }
+  if (!formData.universityName.trim()) {
+    errors.universityName = "University name is required";
+  }
+  if (!formData.graduationYear || formData.graduationYear < 1900 || formData.graduationYear > new Date().getFullYear()) {
+    errors.graduationYear = "Enter a valid graduation year";
+  }
+  if (!formData.enrolmentNumber.trim()) {
+    errors.enrolmentNumber = "Enrolment number is required";
+  }
+  if (!formData.stateBarCouncil.trim()) {
+    errors.stateBarCouncil = "State bar council name is required";
+  }
+  if (!formData.enrollmentYear || formData.enrollmentYear < 1900 || formData.enrollmentYear > new Date().getFullYear()) {
+    errors.enrollmentYear = "Enter a valid enrollment year";
+  }
+  if (!formData.enrollmentCertificate) {
+    errors.enrollmentCertificate = "Enrollment certificate is required";
+  }
+
+  setFormErrors(errors);
+  return Object.keys(errors).length === 0;
+};
+
+
+
+const validateStep3 = () => {
+  const errors = {};
+
+  if (!formData.yearsOfExperience || formData.yearsOfExperience <= 0) {
+    errors.yearsOfExperience = "Enter valid years of experience";
+  }
+  if (!formData.specialization) {
+    errors.specialization = "Specialization is required";
+  }
+  if (!formData.subSpecialization) {
+    errors.subSpecialization = "Sub-specialization is required";
+  }
+  if (!formData.subDepartment) {
+    errors.subDepartment = "Sub department is required";
+  }
+  if (formData.courtOfPractice.length === 0) {
+    errors.courtOfPractice = "Select at least one court of practice";
+  }
+  if (!formData.practiceLicense) {
+    errors.practiceLicense = "Practice license upload is required";
+  }
+
+  setFormErrors(errors);
+  return Object.keys(errors).length === 0;
+};
+
+
+
+const validateStep4 = () => {
+  const errors = {};
+
+  if (!formData.city.trim()) {
+    errors.city = "City / Town is required";
+  }
+  if (!formData.state.trim()) {
+    errors.state = "State is required";
+  }
+  if (!formData.pinCode.trim()) {
+    errors.pinCode = "Pin code is required";
+  } else if (!/^\d{5,6}$/.test(formData.pinCode.trim())) {
+    errors.pinCode = "Enter a valid 5 or 6 digit pin code";
+  }
+  if (!formData.currentOfficeAddress.trim()) {
+    errors.currentOfficeAddress = "Current office address is required";
+  }
+  if (!formData.permanentAddress.trim()) {
+    errors.permanentAddress = "Permanent address is required";
+  }
+
+  setFormErrors(errors);
+  return Object.keys(errors).length === 0;
+};
+
+
+
+const validateStep5 = () => {
+  const errors = {};
+
+  // Require at least one work type
+  if (formData.workTypes.length === 0) {
+    errors.workTypes = "Please select at least one work type";
+  }
+
+  // Require at least one language
+  if (formData.languagesKnown.length === 0) {
+    errors.languagesKnown = "Please select at least one language";
+  }
+
+  // If "Other" selected, make sure otherWorkType or otherLanguage is filled
+  if (formData.workTypes.includes("Other") && !formData.otherWorkType?.trim()) {
+    errors.workTypes = "Please specify the other work type";
+  }
+  if (formData.languagesKnown.includes("Other") && !formData.otherLanguage?.trim()) {
+    errors.languagesKnown = "Please specify the other language";
+  }
+
+  setFormErrors(errors);
+  return Object.keys(errors).length === 0;
+};
+
+
+
+const validateStep6 = () => {
+  let errors = {};
+  let isValid = true;
+
+  if (formData.subscriptions.length === 0) {
+    errors.subscriptions = "Please select at least one subscription option.";
+    isValid = false;
+  }
+
+  if (formData.paymentModes.length === 0) {
+    errors.paymentModes = "Please select at least one payment mode.";
+    isValid = false;
+  }
+
+  if (
+    formData.paymentModes.includes("Other") &&
+    !formData.otherPaymentMode.trim()
+  ) {
+    errors.otherPaymentMode = "Please specify other payment mode.";
+    isValid = false;
+  }
+
+  setFormErrors(prev => ({ ...prev, ...errors }));
+  return isValid;
+};
+
+
+const validateStep7 = () => {
+  let errors = {};
+  let isValid = true;
+
+  if (formData.availableFor.length === 0) {
+    errors.availableFor = "Please select at least one option for 'Available For'.";
+    isValid = false;
+  }
+
+  if (!formData.workingHoursStart || !formData.workingHoursEnd) {
+    errors.workingHours = "Please select both start and end working hours.";
+    isValid = false;
+  }
+
+  if (formData.availableDays.length === 0) {
+    errors.availableDays = "Please select at least one available day.";
+    isValid = false;
+  }
+
+  setFormErrors(prev => ({ ...prev, ...errors }));
+  return isValid;
+};
+
+
+const validateStep8 = () => {
+  let errors = {};
+  let isValid = true;
+
+  if (formData.declarations.length === 0) {
+    errors.declarations = "Please check at least one declaration.";
+    isValid = false;
+  }
+  if (!formData.signature.trim()) {
+    errors.signature = "Signature is required.";
+    isValid = false;
+  }
+  if (!formData.date) {
+    errors.date = "Date is required.";
+    isValid = false;
+  }
+
+  setFormErrors(prev => ({ ...prev, ...errors }));
+  return isValid;
+};
+
+const handleFinalSubmit = async () => {
+  if (validateStep8()) {
+    try {
+      // await axios.post('/api/submit', formData);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Successfully Advocate Registered',
+        confirmButtonColor: '#6B46C1'
+      }).then(() => {
+        // e.g., resetForm(); navigate('/success');
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: 'Something went wrong. Please try again.'
+      });
+    }
+  }
+};
+
+  
+
+const handleAvailableForChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, availableFor: [...prev.availableFor, value] };
+    } else {
+      return {
+        ...prev,
+        availableFor: prev.availableFor.filter((item) => item !== value),
+      };
+    }
+  });
+};
+
+
+
+const handleSubscriptionChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, subscriptions: [...prev.subscriptions, value] };
+    } else {
+      return {
+        ...prev,
+        subscriptions: prev.subscriptions.filter((sub) => sub !== value),
+      };
+    }
+  });
+};
+
+const handlePaymentModeChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, paymentModes: [...prev.paymentModes, value] };
+    } else {
+      return {
+        ...prev,
+        paymentModes: prev.paymentModes.filter((mode) => mode !== value),
+      };
+    }
+  });
+};
+
+
+const handleDeclarationChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, declarations: [...prev.declarations, value] };
+    } else {
+      return {
+        ...prev,
+        declarations: prev.declarations.filter((item) => item !== value),
+      };
+    }
+  });
+};
+
+
+
+const handleAvailableDaysChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, availableDays: [...prev.availableDays, value] };
+    } else {
+      return {
+        ...prev,
+        availableDays: prev.availableDays.filter((day) => day !== value),
+      };
+    }
+  });
+};
+
+
+const handleCourtChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData((prev) => {
+    if (checked) {
+      return { ...prev, courtOfPractice: [...prev.courtOfPractice, value] };
+    } else {
+      return {
+        ...prev,
+        courtOfPractice: prev.courtOfPractice.filter((court) => court !== value),
+      };
+    }
+  });
+};
+
+
+
+
+  const specializations = {
+    "Civil Law": ["Property Disputes", "Contract Law", "Tort Law"],
+    "Criminal Law": ["White Collar Crime", "Cyber Crime", "Juvenile Justice"],
+    "Corporate Law": ["Mergers & Acquisitions", "Banking & Finance", "Securities Law"],
+    "Family Law": ["Divorce", "Child Custody", "Adoption"],
+    "Intellectual Property Law": ["Copyright", "Trademark", "Patent"],
+    "Tax Law": ["Direct Tax", "Indirect Tax", "GST"],
+    "Labor & Employment Law": ["Industrial Disputes", "Employee Benefits", "Wages"],
+    "Environmental Law": ["Pollution Control", "Wildlife Protection", "Climate Change Law"],
+    "Human Rights Law": ["Women's Rights", "Children's Rights", "Disability Rights"],
+    "Other": ["General Practice"]
+  };
+
+  const subDepartments = {
+    "Property Disputes": ["Land", "Real Estate", "Tenancy"],
+    "Contract Law": ["Commercial", "Employment", "Service"],
+    "White Collar Crime": ["Fraud", "Embezzlement", "Insider Trading"],
+    // add more if needed
+  };
+
+  const nextStep = () => setStep((prev) => Math.min(prev + 1, 8));
+  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-    if (type === "file") setFormData({ ...formData, [name]: files[0] });
-    else if (type === "checkbox") setFormData({ ...formData, [name]: checked });
-    else setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
+      ...(name === "specialization" && { subSpecialization: "", subDepartment: "" })
+    }));
   };
 
+  const [formErrors, setFormErrors] = useState({});
+
+  // handle input changes
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: submit logic
+    console.log('Form submitted:', formData);
+    alert('Form submitted!');
+    // navigate("/success") or send data to API here
   };
-
-  const formatAvailability = (dates) =>
-    dates.map((d, i) => (
-      <div key={i}>
-        {i + 1}. {format(new Date(d), "yyyy-MM-dd hh:mm a")}
-      </div>
-    ));
 
   return (
     <motion.div
@@ -61,296 +482,1082 @@ const RegisterAdvocate = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-white dark:bg-black text-black dark:text-white py-12 px-4"
     >
-      {/* Logo + sub‑heading */}
       <div className="max-w-4xl mx-auto text-center mb-8">
         <div className="text-4xl mb-2">⚖️</div>
         <h2 className="text-3xl font-extrabold">Create your account</h2>
         <p className="mt-2 text-sm">
           Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
-            className="text-blue-600 hover:underline cursor-pointer"
-          >
-            Sign in
-          </span>
+          <span onClick={() => navigate("/login")} className="text-blue-600 hover:underline cursor-pointer">Sign in</span>
         </p>
+           <h2 className="text-2xl font-extrabold mt-3">Advocate Registration</h2>
       </div>
 
-      {/* Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="max-w-4xl mx-auto p-8 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-900"
+        className=" mx-auto p-8 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black lg:w-[1400px]"
       >
-        {/* Header row with icon + title + go‑back */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <FaUserShield className="text-2xl" />
-            <h3 className="text-xl font-semibold">Advocate Registration</h3>
-          </div>
-          <span
-            onClick={() => navigate("/register")}
-            className="text-blue-600 hover:underline cursor-pointer text-sm"
-          >
-            ← Go back
-          </span>
+        {/* Step Indicator */}
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-2 mb-6">
+          {[
+            'Personal Details', 'Educational Details', 'Practice Information',
+            'Location Details', 'Career Info', 'Subscription', 'Availability', 'Declarations'
+          ].map((label, index) => (
+            <div
+              key={index}
+              className={`text-center text-xs md:text-sm font-semibold pb-1 border-b-2 ${
+                step === index + 1 ? 'border-purple-500 text-purple-700' : 'border-gray-300 text-gray-500'
+              }`}
+            >
+              {label}
+            </div>
+          ))}
         </div>
 
-        {/* Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {/* Full Name */}
-          <div>
-            <label className="block mb-1">
-              Full Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              placeholder="Enter your full name"
-              className="w-full border rounded px-3 py-3"
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Step 1: Personal Details */}
+          {step === 1 && (
+            <>
+            <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+              <div>
+  <label className="block mb-1">Full Name *</label>
+  <input
+    name="fullName"
+    value={formData.fullName}
+    onChange={handleChange}
+    placeholder="Enter your full name"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+    {formErrors.fullName && <p className="text-red-500 text-sm">{formErrors.fullName}</p>}
+</div>
 
-          {/* Email */}
-          <div>
-            <label className="block mb-1">
-              Email Address <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <MdEmail className="absolute left-3 top-3 text-xl text-gray-500" />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-                className="w-full pl-12 pr-4 py-3 border rounded bg-transparent"
-                required
-              />
-            </div>
-          </div>
 
-          {/* Mobile */}
-          <div>
-            <label className="block mb-1">
-              Mobile Number <span className="text-red-500">*</span>
-            </label>
-            <input
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleChange}
-              placeholder="Enter your mobile number"
-              className="w-full border rounded px-3 py-3"
-              required
-            />
-          </div>
+  <div>
+  <label className="block mb-1">Gender *</label>
+  <select
+    name="gender"
+    value={formData.gender}
+    onChange={handleChange}
+    className="w-full border rounded px-3 py-2 bg-white text-black"
+    required
+  >
+    <option value="" disabled>Select your gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+    {formErrors.gender && <p className="text-red-500 text-sm">{formErrors.gender}</p>}
+</div>
 
-          {/* Password */}
-          <div>
-            <label className="block mb-1">
-              Password <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
-              <MdLock className="absolute left-3 top-3 text-xl text-gray-500" />
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                className="w-full pl-12 pr-12 py-3 border rounded bg-transparent"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((p) => !p)}
-                className="absolute right-3 top-3 text-xl text-gray-500"
-              >
-                {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
-              </button>
-            </div>
-          </div>
 
-          {/* Department */}
-          <div>
-            <label className="block mb-1">
-              Department / Specialization <span className="text-red-500">*</span>
-            </label>
-            <CreatableSelect
-              value={
-                formData.department
-                  ? { label: formData.department, value: formData.department }
-                  : null
-              }
-              onChange={(opt) =>
-                setFormData({ ...formData, department: opt?.value || "" })
-              }
-              options={[
-                { value: "Family", label: "Family" },
-                { value: "Criminal", label: "Criminal" },
-                { value: "Corporate", label: "Corporate" },
-              ]}
-              placeholder="Type or select specialization"
-            />
-          </div>
+<div>
+  <label className="block mb-1">Date of Birth *</label>
+  <input
+    type="date"
+    name="dateOfBirth"
+    value={formData.dateOfBirth}
+    onChange={handleChange}
+    placeholder="Select your birth date"
+    className="w-full border rounded px-3 py-2 bg-white text-black"
+    required
+  />
+   {formErrors.dateOfBirth && <p className="text-red-500 text-sm">{formErrors.dateOfBirth}</p>}
+</div>
 
-          {/* Experience */}
-          <div>
-            <label className="block mb-1">
-              Years of Experience <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="number"
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              placeholder="Years of experience"
-              className="w-full border rounded px-3 py-3"
-              required
-            />
-          </div>
 
-          {/* Bar ID */}
-          <div>
-            <label className="block mb-1">
-              Bar Council ID / License <span className="text-red-500">*</span>
-            </label>
-            <input
-              name="barId"
-              value={formData.barId}
-              onChange={handleChange}
-              placeholder="License number"
-              className="w-full border rounded px-3 py-3"
-              required
-            />
-          </div>
 
-          {/* Profile Picture (optional) */}
-          <div>
-            <label className="block mb-1">Profile Picture (optional)</label>
-            <input
-              type="file"
-              name="profilePic"
-              onChange={handleChange}
-              className="w-full"
-            />
-          </div>
 
-          {/* Consultation Fee */}
-          <div>
-            <label className="block mb-1">
-              Consultation Fee (₹/hour) <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="number"
-              name="consultationFee"
-              value={formData.consultationFee}
-              onChange={handleChange}
-              placeholder="Fee per hour"
-              className="w-full border rounded px-3 py-3"
-              required
-            />
-          </div>
+<div>
+  <label className="block mb-1">Mobile Number *</label>
+  <input
+    type="tel"
+    name="mobileNumber"
+    value={formData.mobileNumber}
+    onChange={handleChange}
+    placeholder="Enter 10-digit mobile number"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+    {formErrors.mobileNumber && <p className="text-red-500 text-sm">{formErrors.mobileNumber}</p>}
+</div>
 
-          {/* Office Address */}
-          <div>
-            <label className="block mb-1">
-              Office Address/Location <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              name="officeAddress"
-              rows={3}
-              value={formData.officeAddress}
-              onChange={handleChange}
-              placeholder="Enter your office address"
-              className="w-full border rounded px-3 py-3"
-              required
-            />
-          </div>
+<div>
+  <label className="block mb-1">Email *</label>
+  <input
+    type="email"
+    name="email"
+    value={formData.email}
+    onChange={handleChange}
+    placeholder="Enter your email address"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+   {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
+</div>
 
-          {/* Availability */}
-          <div>
-            <label className="block mb-1">
-              Available Dates & Times <span className="text-red-500">*</span>
-            </label>
-            <div className="w-full border rounded px-3 py-3">
-              <DatePicker
-                multiple
-                value={formData.availabilityDates}
-                onChange={(v) =>
-                  setFormData({ ...formData, availabilityDates: v })
+<div>
+  <label className="block mb-1">Aadhar Number *</label>
+  <input
+    name="aadharNumber"
+    value={formData.aadharNumber}
+    onChange={handleChange}
+    placeholder="Enter 12-digit Aadhar number"
+    maxLength={12}
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+    {formErrors.aadharNumber && <p className="text-red-500 text-sm">{formErrors.aadharNumber}</p>}
+</div>
+
+<div className="md:col-span-2">
+  <label className="block mb-1">Profile Picture *</label>
+  <input
+    type="file"
+    name="profilePicture"
+    accept="image/*"
+    onChange={handleChange}
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+    {formErrors.profilePicture && <p className="text-red-500 text-sm">{formErrors.profilePicture}</p>}
+</div>
+</div>
+
+              <div className="md:col-span-2 flex justify-end">
+                <button
+              type="button"
+              onClick={() => {
+                if (validateStep1()) {
+                  nextStep();
                 }
-                plugins={[<TimePicker position="bottom" />]}
-                format="YYYY-MM-DD hh:mm A"
-              />
-            </div>
-            <div className="mt-2 space-y-1">
-              {formatAvailability(formData.availabilityDates)}
-            </div>
-          </div>
-
-          {/* License Doc */}
-          <div>
-            <label className="block mb-1">
-              Upload License Document <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="file"
-              name="licenseDoc"
-              onChange={handleChange}
-              className="w-full"
-              required
-            />
-          </div>
-
-          {/* Certificates (optional) */}
-          <div>
-            <label className="block mb-1">Upload Certificates (Optional)</label>
-            <input
-              type="file"
-              name="certificates"
-              onChange={handleChange}
-              className="w-full"
-            />
-          </div>
-
-          {/* Terms */}
-          <div className="md:col-span-2 flex gap-2">
-            <input
-              type="checkbox"
-              name="termsAccepted"
-              checked={formData.termsAccepted}
-              onChange={handleChange}
-              required
-              className="mt-1"
-            />
-            <p className="text-sm">
-              I accept the{" "}
-              <span className="text-blue-600 hover:underline cursor-pointer">
-                Terms & Conditions
-              </span>{" "}
-              and{" "}
-              <span className="text-blue-600 hover:underline cursor-pointer">
-                Privacy Policy
-              </span>
-            </p>
-          </div>
-
-          {/* Submit */}
-          <div className="md:col-span-2">
-            <button
-              type="submit"
-              className="w-full py-3 bg-black text-white dark:bg-white dark:text-black rounded font-semibold hover:opacity-90"
+              }}
+              className="px-4 py-2 bg-purple-500 text-white rounded-full"
             >
-              Register
+              Next
             </button>
-          </div>
+                
+              </div>
+            </>
+          )}
+
+          {/* Step 2: Educational Details */}
+          {step === 2 && (
+            <>
+             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+              <div><label className="block mb-1">Law Degree *</label>
+              <input name="lawDegree" value={formData.lawDegree} onChange={handleChange}    placeholder="e.g., LLB, LLM" className="w-full border rounded px-3 py-2 text-black" required />  
+               {formErrors.lawDegree && <p className="text-red-500 text-sm">{formErrors.lawDegree}</p>}
+              </div>
+
+              <div><label className="block mb-1">University Name *</label>
+              <input name="universityName" value={formData.universityName} onChange={handleChange}  placeholder="Enter university name" className="w-full border rounded px-3 py-2 text-black" required />
+                {formErrors.universityName && <p className="text-red-500 text-sm">{formErrors.universityName}</p>}
+              </div>
+
+
+              <div><label className="block mb-1">Graduation Year *</label>
+              <input type="number" name="graduationYear" value={formData.graduationYear} onChange={handleChange}   placeholder="e.g., 2020" className="w-full border rounded px-3 py-2 text-black" required />
+
+                {formErrors.graduationYear && <p className="text-red-500 text-sm">{formErrors.graduationYear}</p>}
+              </div>
+
+
+
+              <div><label className="block mb-1">Bar Council Enrolment Number *</label>
+              <input name="enrolmentNumber" value={formData.enrolmentNumber} onChange={handleChange}  placeholder="Enter enrolment number" className="w-full border rounded px-3 py-2 text-black" required />
+               {formErrors.enrolmentNumber && <p className="text-red-500 text-sm">{formErrors.enrolmentNumber}</p>}
+              </div>
+
+
+              <div><label className="block mb-1">State Bar Council *</label>
+              <input name="stateBarCouncil" value={formData.stateBarCouncil} onChange={handleChange}   placeholder="Enter state bar council name" className="w-full border rounded px-3 py-2 text-black" required />
+               {formErrors.stateBarCouncil && <p className="text-red-500 text-sm">{formErrors.stateBarCouncil}</p>}
+              </div>
+
+
+
+              <div><label className="block mb-1">Enrollment Year *</label>
+              <input type="number" name="enrollmentYear" value={formData.enrollmentYear} onChange={handleChange}  placeholder="e.g., 2021" className="w-full border rounded px-3 py-2 text-black" required />
+               {formErrors.enrollmentYear && <p className="text-red-500 text-sm">{formErrors.enrollmentYear}</p>}
+              </div>
+
+
+              <div className="md:col-span-2"><label className="block mb-1">Enrollment Certificate *</label>
+              <input type="file" name="enrollmentCertificate" onChange={handleChange}   className="w-full border rounded px-3 py-2 text-black" required />
+                 {formErrors.enrollmentCertificate && <p className="text-red-500 text-sm">{formErrors.enrollmentCertificate}</p>}
+              </div>
+              </div>
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+             <button
+  type="button"
+  onClick={() => {
+    if (validateStep2()) {
+      nextStep();  // move to step 3
+    }
+  }}
+  className="px-4 py-2 bg-purple-500 text-white rounded-full"
+>
+  Next
+</button>
+
+              </div>
+            </>
+          )}
+
+          {/* Step 3–8: Fill in similarly */}
+          {step === 3 && (
+            <>
+             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+              <div><label className="block mb-1">Years of Experience *</label><input type="number" name="yearsOfExperience" value={formData.yearsOfExperience} onChange={handleChange}  placeholder="e.g., 5" className="w-full border rounded px-3 py-2 text-black" required />
+                {formErrors.yearsOfExperience && <p className="text-red-500 text-sm">{formErrors.yearsOfExperience}</p>}
+              </div>
+
+
+              <div>
+                <label className="block mb-1">Specialization *</label>
+                <select name="specialization" value={formData.specialization} onChange={handleChange} className="w-full border rounded px-3 py-2 text-black" required>
+                  <option value="" disabled>Select specialization</option>
+                  {Object.keys(specializations).map((spec) => <option key={spec}>{spec}</option>)}
+                </select>
+                 {formErrors.specialization && <p className="text-red-500 text-sm">{formErrors.specialization}</p>}
+              </div>
+              {formData.specialization && (
+                <div className="md:col-span-2">
+                  <label className="block mb-1">Sub-Specialization *</label>
+                  <select name="subSpecialization" value={formData.subSpecialization} onChange={handleChange} className="w-full border rounded px-3 py-2 text-black" required>
+                    <option value="" disabled>Select sub-specialization</option>
+                    {specializations[formData.specialization].map((sub) => <option key={sub}>{sub}</option>)}
+                  </select>
+                    {formErrors.subSpecialization && <p className="text-red-500 text-sm">{formErrors.subSpecialization}</p>}
+                </div>
+              )}
+              {formData.subSpecialization && (
+                <div className="md:col-span-2">
+                  <label className="block mb-1">Sub Department *</label>
+                  <select name="subDepartment" value={formData.subDepartment} onChange={handleChange} className="w-full border rounded px-3 py-2 text-black" required>
+                    <option value="" disabled>Select sub department</option>
+                    {subDepartments[formData.subSpecialization]?.map((dep) => <option key={dep}>{dep}</option>)}
+                  </select>
+                   {formErrors.subDepartment && <p className="text-red-500 text-sm">{formErrors.subDepartment}</p>}
+                </div>
+              )}
+
+ <div className="md:col-span-2">
+              <select
+  name="subDepartment"
+  value={formData.subDepartment}
+  onChange={handleChange}
+  className="w-full border rounded px-3 py-2 text-black"
+  required
+>
+  <option value="" disabled>Select Sub Department...</option>
+  <option value="Corporate Law">Corporate Law</option>
+  <option value="Criminal Law">Criminal Law</option>
+  <option value="Civil Litigation">Civil Litigation</option>
+  <option value="Taxation">Taxation</option>
+  <option value="Intellectual Property">Intellectual Property</option>
+  <option value="Family Law">Family Law</option>
+  <option value="Labor and Employment">Labor and Employment</option>
+  <option value="Other">Other</option>
+</select>
+</div>
+
+
+<div className="mt-4">
+  <label className="block mb-1">Court of Practice*: </label>
+  <div className="space-y-1">
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="courtOfPractice"
+        value="Supreme Court"
+        checked={formData.courtOfPractice.includes("Supreme Court")}
+        onChange={handleCourtChange}
+        className="mr-2"
+        required={formData.courtOfPractice.length === 0} // at least one required
+      />
+      Supreme Court
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="courtOfPractice"
+        value="High Court"
+        checked={formData.courtOfPractice.includes("High Court")}
+        onChange={handleCourtChange}
+        className="mr-2"
+      />
+      High Court
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="courtOfPractice"
+        value="District Court"
+        checked={formData.courtOfPractice.includes("District Court")}
+        onChange={handleCourtChange}
+        className="mr-2"
+      />
+      District Court
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="courtOfPractice"
+        value="Family Court"
+        checked={formData.courtOfPractice.includes("Family Court")}
+        onChange={handleCourtChange}
+        className="mr-2"
+      />
+      Family Court
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="courtOfPractice"
+        value="Consumer Forum"
+        checked={formData.courtOfPractice.includes("Consumer Forum")}
+        onChange={handleCourtChange}
+        className="mr-2"
+      />
+      Consumer Forum
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="courtOfPractice"
+        value="Others"
+        checked={formData.courtOfPractice.includes("Others")}
+        onChange={handleCourtChange}
+        className="mr-2"
+      />
+      Others:
+      <input
+        type="text"
+        name="otherCourt"
+        value={formData.otherCourt}
+        onChange={handleChange}
+        placeholder="Specify"
+        disabled={!formData.courtOfPractice.includes("Others")}
+        className="ml-2 border rounded px-2 py-1 flex-1 disabled:bg-gray-100 text-black"
+      />
+    </label>
+       {formErrors.courtOfPractice && <p className="text-red-500 text-sm">{formErrors.courtOfPractice}</p>}
+  </div>
+</div>
+
+<div className="mt-4">
+  <label className="block mb-1">Bar Association Name (If any): </label>
+  <input
+    type="text"
+    name="barAssociation"
+    value={formData.barAssociation}
+    onChange={handleChange}
+    placeholder="Enter your bar association name"
+    className="w-full border rounded px-3 py-2 text-black"
+  />
+</div>
+
+
+<div className="mt-4">
+  <label className="block mb-1">
+    Practice License Upload* <span className="text-gray-500 text-sm">( .pdf / .jpg )</span>
+  </label>
+  <input
+    type="file"
+    name="practiceLicense"
+    accept=".pdf, .jpg"
+    onChange={handleFileChange}
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+  {formErrors.practiceLicense && <p className="text-red-500 text-sm">{formErrors.practiceLicense}</p>}
+</div>
+
+</div>
+
+
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+              <button
+  type="button"
+  onClick={() => {
+    if (validateStep3()) {
+      nextStep(); // go to step 4
+    }
+  }}
+  className="px-4 py-2 bg-purple-500 text-white rounded-full"
+>
+  Next
+</button>
+
+              </div>
+            </>
+          )}
+
+          {/* Step 4–7: Add your fields for location, career, subscription, availability */}
+             {step === 4 && (
+            <>
+             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+             <div>
+  <label className="block mb-1">City / Town*: </label>
+  <input
+    name="city"
+    value={formData.city}
+    onChange={handleChange}
+    className="w-full border rounded px-3 py-2 text-black"
+   placeholder="Enter your city or town"
+    required
+  />
+     {formErrors.city && <p className="text-red-500 text-sm">{formErrors.city}</p>}
+</div>
+
+
+
+<div>
+  <label className="block mb-1">State*: </label>
+  <input
+    name="state"
+    value={formData.state}
+    onChange={handleChange}
+    placeholder="Enter your state"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+    {formErrors.state && <p className="text-red-500 text-sm">{formErrors.state}</p>}
+</div>
+
+
+<div>
+  <label className="block mb-1">Pin Code*: </label>
+  <input
+    type="text"
+    name="pinCode"
+    value={formData.pinCode}
+    onChange={handleChange}
+    placeholder="Enter your pin code"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+   {formErrors.pinCode && <p className="text-red-500 text-sm">{formErrors.pinCode}</p>}
+</div>
+
+
+<div>
+  <label className="block mb-1">Current Office Address*: </label>
+  <input
+    type="text"
+    name="currentOfficeAddress"
+    value={formData.currentOfficeAddress}
+    onChange={handleChange}
+    placeholder="Enter your current office address"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+    {formErrors.currentOfficeAddress && <p className="text-red-500 text-sm">{formErrors.currentOfficeAddress}</p>}
+</div>
+
+
+<div>
+  <label className="block mb-1">Permanent Address*: </label>
+  <textarea
+    name="permanentAddress"
+    value={formData.permanentAddress}
+    onChange={handleChange}
+    placeholder="Enter your permanent address"
+    className="w-full border rounded px-3 py-4 text-black"
+    required
+  ></textarea>
+   {formErrors.permanentAddress && <p className="text-red-500 text-sm">{formErrors.permanentAddress}</p>}
+</div>
+
+
+</div>
+
+
+             
+             
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+               <button
+  type="button"
+  onClick={() => {
+    if (validateStep4()) {
+      nextStep(); // move to step 5
+    }
+  }}
+  className="px-4 py-2 bg-purple-500 text-white rounded-full"
+>
+  Next
+</button>
+
+              </div>
+            </>
+          )}
+
+            {step === 5 && (
+            <>
+ <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+
+<div>
+  <label className="block mb-1">Current Firm / Organization (If any): </label>
+  <input
+    type="text"
+    name="currentFirm"
+    value={formData.currentFirm}
+    onChange={handleChange}
+    placeholder="Enter your current firm or organization"
+    className="w-full border rounded px-3 py-2 text-black"
+  />
+   {formErrors.currentFirm && <p className="text-red-500 text-sm">{formErrors.currentFirm}</p>}
+</div>
+
+
+<div>
+  <label className="block mb-1">Position / Designation: </label>
+  <input
+    type="text"
+    name="designation"
+    value={formData.designation}
+    onChange={handleChange}
+    placeholder="Enter your position or designation"
+    className="w-full border rounded px-3 py-2 text-black"
+  />
+   {formErrors.designation && <p className="text-red-500 text-sm">{formErrors.designation}</p>}
+</div>
+
+
+<div>
+  <label className="block mb-1">Work Type*: </label>
+  <div className="space-y-1">
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="workTypes"
+        value="Independent Advocate"
+        checked={formData.workTypes.includes("Independent Advocate")}
+        onChange={handleWorkTypeChange}
+        className="mr-2"
+        required={formData.workTypes.length === 0} // make at least one required
+      />
+      Independent Advocate
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="workTypes"
+        value="Law Firm Partner/Associate"
+        checked={formData.workTypes.includes("Law Firm Partner/Associate")}
+        onChange={handleWorkTypeChange}
+        className="mr-2"
+      />
+      Law Firm Partner/Associate
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="workTypes"
+        value="Legal Advisor"
+        checked={formData.workTypes.includes("Legal Advisor")}
+        onChange={handleWorkTypeChange}
+        className="mr-2"
+      />
+      Legal Advisor
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="workTypes"
+        value="Government Lawyer"
+        checked={formData.workTypes.includes("Government Lawyer")}
+        onChange={handleWorkTypeChange}
+        className="mr-2"
+      />
+      Government Lawyer
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="workTypes"
+        value="In-house Counsel"
+        checked={formData.workTypes.includes("In-house Counsel")}
+        onChange={handleWorkTypeChange}
+        className="mr-2"
+      />
+      In-house Counsel
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="workTypes"
+        value="Other"
+        checked={formData.workTypes.includes("Other")}
+        onChange={handleWorkTypeChange}
+        className="mr-2"
+      />
+      Other: 
+      <input
+        type="text"
+        name="otherWorkType"
+        value={formData.otherWorkType || ''}
+        onChange={handleChange}
+        placeholder="Specify"
+        className="ml-2 border rounded px-2 py-1 flex-1 text-black"
+      />
+    </label>
+  </div>
+    {formErrors.workTypes && <p className="text-red-500 text-sm">{formErrors.workTypes}</p>}
+</div>
+
+
+<div>
+  <label className="block mb-1">Languages Known*: </label>
+  <div className="space-y-1">
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="languagesKnown"
+        value="English"
+        checked={formData.languagesKnown.includes("English")}
+        onChange={handleLanguagesChange}
+        className="mr-2"
+        required={formData.languagesKnown.length === 0}
+      />
+      English
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="languagesKnown"
+        value="Hindi"
+        checked={formData.languagesKnown.includes("Hindi")}
+        onChange={handleLanguagesChange}
+        className="mr-2"
+      />
+      Hindi
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="languagesKnown"
+        value="Telugu"
+        checked={formData.languagesKnown.includes("Telugu")}
+        onChange={handleLanguagesChange}
+        className="mr-2"
+      />
+      Telugu
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="languagesKnown"
+        value="Other"
+        checked={formData.languagesKnown.includes("Other")}
+        onChange={handleLanguagesChange}
+        className="mr-2"
+      />
+      Other: 
+      <input
+        type="text"
+        name="otherLanguage"
+        value={formData.otherLanguage}
+        onChange={handleChange}
+        placeholder="Specify"
+        className="ml-2 border rounded px-2 py-1 flex-1 text-black"
+      />
+    </label>
+  </div>
+    {formErrors.languagesKnown && <p className="text-red-500 text-sm">{formErrors.languagesKnown}</p>}
+</div>
+
+</div>
+            
+              
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+              <button
+  type="button"
+  onClick={() => {
+    if (validateStep5()) {
+      nextStep(); // go to step 6
+    }
+  }}
+  className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
+>
+  Next
+</button>
+
+              </div>
+            </>
+          )}
+
+            {step === 6 && (
+            <>
+             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+              <div className="mt-4">
+  <label className="block mb-1 font-semibold">Subscription & Packages</label>
+  <div className="space-y-1">
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="subscriptions"
+        value="Free Basic Listing"
+        checked={formData.subscriptions.includes("Free Basic Listing")}
+        onChange={handleSubscriptionChange}
+        className="mr-2"
+      />
+      Free Basic Listing
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="subscriptions"
+        value="Premium Plan – ₹499/month"
+        checked={formData.subscriptions.includes("Premium Plan – ₹499/month")}
+        onChange={handleSubscriptionChange}
+        className="mr-2"
+      />
+      Premium Plan – ₹499/month
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="subscriptions"
+        value="Verified Badge – ₹999/year"
+        checked={formData.subscriptions.includes("Verified Badge – ₹999/year")}
+        onChange={handleSubscriptionChange}
+        className="mr-2"
+      />
+      Verified Badge – ₹999/year
+    </label>
+  </div>
+
+   {formErrors.subscriptions && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.subscriptions}</p>
+    )}
+
+  <label className="block mt-3 mb-1">Mode of Payment:</label>
+  <div className="space-y-1">
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="paymentModes"
+        value="UPI"
+        checked={formData.paymentModes.includes("UPI")}
+        onChange={handlePaymentModeChange}
+        className="mr-2"
+      />
+      UPI
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="paymentModes"
+        value="Card"
+        checked={formData.paymentModes.includes("Card")}
+        onChange={handlePaymentModeChange}
+        className="mr-2"
+      />
+      Card
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="paymentModes"
+        value="Net Banking"
+        checked={formData.paymentModes.includes("Net Banking")}
+        onChange={handlePaymentModeChange}
+        className="mr-2"
+      />
+      Net Banking
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="paymentModes"
+        value="Other"
+        checked={formData.paymentModes.includes("Other")}
+        onChange={handlePaymentModeChange}
+        className="mr-2"
+      />
+      Other: 
+      <input
+        type="text"
+        name="otherPaymentMode"
+        value={formData.otherPaymentMode}
+        onChange={handleChange}
+        placeholder="Specify"
+        disabled={!formData.paymentModes.includes("Other")}
+        className="ml-2 border rounded px-2 py-1 flex-1 disabled:bg-gray-100"
+      />
+    </label>
+  </div>
+   {formErrors.paymentModes && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.paymentModes}</p>
+    )}
+    {formErrors.otherPaymentMode && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.otherPaymentMode}</p>
+    )}
+</div>
+</div>
+             
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+              <button
+    type="button"
+    onClick={() => {
+      if (validateStep6()) {
+        nextStep();
+      }
+    }}
+    className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
+  >
+    Next
+  </button>
+              </div>
+            </>
+          )}
+            {step === 7 && (
+            <>
+ <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+
+<div className="mt-4">
+  <label className="block mb-1">Available For*: </label>
+  <div className="space-y-1">
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="availableFor"
+        value="Phone Consultation"
+        checked={formData.availableFor.includes("Phone Consultation")}
+        onChange={handleAvailableForChange}
+        className="mr-2"
+        required={formData.availableFor.length === 0} // to ensure at least one is selected
+      />
+      Phone Consultation
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="availableFor"
+        value="Video Consultation"
+        checked={formData.availableFor.includes("Video Consultation")}
+        onChange={handleAvailableForChange}
+        className="mr-2"
+      />
+      Video Consultation
+    </label>
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="availableFor"
+        value="In-person Consultation"
+        checked={formData.availableFor.includes("In-person Consultation")}
+        onChange={handleAvailableForChange}
+        className="mr-2"
+      />
+      In-person Consultation
+    </label>
+  </div>
+    {formErrors.availableFor && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.availableFor}</p>
+    )}
+</div>
+
+
+
+<div className="mt-4">
+  <label className="block mb-1">Working Hours: </label>
+  <div className="flex space-x-3">
+    <input
+      type="time"
+      name="workingHoursStart"
+      value={formData.workingHoursStart}
+      onChange={handleChange}
+      className="w-1/2 border rounded px-3 py-2 text-black"
+      placeholder="Start time"
+    />
+    <input
+      type="time"
+      name="workingHoursEnd"
+      value={formData.workingHoursEnd}
+      onChange={handleChange}
+      className="w-1/2 border rounded px-3 py-2 text-black"
+      placeholder="End time"
+    />
+  </div>
+    {formErrors.workingHours && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.workingHours}</p>
+    )}
+</div>
+
+
+<div className="mt-4">
+  <label className="block mb-1">Available Days*: </label>
+  <div className="flex flex-wrap gap-3">
+    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+      <label key={day} className="flex items-center">
+        <input
+          type="checkbox"
+          name="availableDays"
+          value={day}
+          checked={formData.availableDays.includes(day)}
+          onChange={handleAvailableDaysChange}
+          className="mr-1"
+          required={formData.availableDays.length === 0} // ensure at least one selected
+        />
+        {day}
+      </label>
+    ))}
+  </div>
+   {formErrors.availableDays && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.availableDays}</p>
+    )}
+</div>
+
+</div>
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+              <button
+    type="button"
+    onClick={() => {
+      if (validateStep7()) {
+        nextStep();
+      }
+    }}
+    className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
+  >
+    Next
+  </button>
+              </div>
+            </>
+          )}
+           
+         
+          {/* Step 8: Password & Declarations */}
+          {step === 8 && (
+            <>
+             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
+             <div className="mt-6">
+  <label className="block mb-2 font-semibold">Declarations</label>
+  
+  <div className="space-y-2">
+    <label className="flex items-start">
+      <input
+        type="checkbox"
+        name="declarations"
+        value="infoTrue"
+        checked={formData.declarations.includes("infoTrue")}
+        onChange={handleDeclarationChange}
+        className="mt-1 mr-2"
+        required={formData.declarations.length === 0} // at least one required
+      />
+      <span>I hereby declare that all the above information is true and correct to the best of my knowledge.</span>
+    </label>
+    
+    <label className="flex items-start">
+      <input
+        type="checkbox"
+        name="declarations"
+        value="agreeTerms"
+        checked={formData.declarations.includes("agreeTerms")}
+        onChange={handleDeclarationChange}
+        className="mt-1 mr-2"
+      />
+      <span>I agree to abide by the terms and conditions of E-Advocate Services and BCI norms.</span>
+    </label>
+    
+    <label className="flex items-start">
+      <input
+        type="checkbox"
+        name="declarations"
+        value="consentShare"
+        checked={formData.declarations.includes("consentShare")}
+        onChange={handleDeclarationChange}
+        className="mt-1 mr-2"
+      />
+      <span>I consent to share my profile with clients registered on this platform.</span>
+    </label>
+  </div>
+
+   {formErrors.declarations && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.declarations}</p>
+    )}
+
+  <div className="mt-4">
+    <label className="block mb-1">Signature*: </label>
+    <input
+      type="text"
+      name="signature"
+      value={formData.signature}
+      onChange={handleChange}
+      placeholder="Enter your signature"
+      className="w-full border rounded px-3 py-2 text-black"
+      required
+    />
+  </div>
+
+   {formErrors.signature && (
+        <p className="text-red-500 text-sm mt-1">{formErrors.signature}</p>
+      )}
+
+  <div className="mt-4">
+    <label className="block mb-1">Date*: </label>
+    <input
+      type="date"
+      name="date"
+      value={formData.date}
+      onChange={handleChange}
+      className="w-full border rounded px-3 py-2 text-black"
+      required
+    />
+      {formErrors.date && (
+        <p className="text-red-500 text-sm mt-1">{formErrors.date}</p>
+      )}
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+              <div className="md:col-span-2 flex gap-2">
+                <input type="checkbox" name="termsAccepted" checked={formData.termsAccepted} onChange={handleChange} required />
+                <p className="text-sm">I accept the <span className="text-blue-600 hover:underline">Terms & Conditions</span> and <span className="text-blue-600 hover:underline">Privacy Policy</span></p>
+              </div>
+              <div className="md:col-span-2 flex justify-between">
+                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
+             <button
+  type="button"
+  onClick={() => {
+    if (validateStep8()) {
+      // Call submit logic here (e.g., API request)
+      // After successful submission, show success popup:
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Successfully Advocate Registered',
+        confirmButtonColor: '#6B46C1', // purple
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Optional: redirect, reset form, etc.
+        console.log("Form submitted!");
+      });
+    }
+  }}
+  className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
+>
+  Submit
+</button>
+
+              </div>
+            </>
+          )}
         </form>
       </motion.div>
     </motion.div>

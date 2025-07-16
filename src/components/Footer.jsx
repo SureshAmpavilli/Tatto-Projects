@@ -100,6 +100,11 @@ const icons = [
         How it works
       </Link>
     </li>
+     <li>
+      <Link to="/credites" className="hover:text-blue-600 dark:hover:text-blue-400 transition">
+        Credites
+      </Link>
+    </li>
   </ul>
 </div>
 

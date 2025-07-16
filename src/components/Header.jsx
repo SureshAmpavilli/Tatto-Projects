@@ -146,6 +146,13 @@ const Header = () => {
       >
         Search by Profile ID
       </a>
+        <a
+        href="#search-by-id"
+        onClick={() => setIsOpen(false)}
+        className="block px-4 py-2 hover:bg-white dark:hover:bg-black dark:hover:text-white hover:text-black   transition"
+      >
+        More Tasks
+      </a>
     </div>
   )}
 </div>

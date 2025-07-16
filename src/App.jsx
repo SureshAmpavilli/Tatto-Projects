@@ -43,6 +43,7 @@ import CreateBlogPage from './pages/Create blog';
 import AboutUsPage from './pages/About Us';
 import AdvocateWorks from './pages/Advocate_Works';
 import ClientWorks from './pages/Client_AdvocateWorks';
+import Credites from './pages/Credits';
 
 
 // ✅ Layout to show Header only on Home page ("/")
@@ -96,6 +97,7 @@ function App() {
       <Route path="/about" element={<AboutUsPage />} />
        <Route path="/advocate_works" element={<AdvocateWorks />} />
        <Route path="/client_works" element={<ClientWorks />} />
+         <Route path="/credites" element={<Credites />} />
   
 
           {/* Profile Layout and Nested Routes */}

@@ -43,7 +43,7 @@ const Login = () => {
     if (validate()) {
       // Simulated login check
       if (
-        formData.email === "admin@example.com" &&
+        formData.email === "" &&
         formData.password === "123456"
       ) {
         navigate("/layout"); // Redirect after successful login
