@@ -55,9 +55,31 @@ const RegisterAdvocate = () => {
   otherCategory: '',
     advocateType: '',
       consultationModes: [],
-       subDepartment: '',
+      
          legalIssue: '',
-          otherCategory: '',
+         
+           documentType: '',
+     firstName: '',
+  lastName: '',
+  
+ 
+ country: '',
+  state: '',
+  city: '',
+  currentOfficeAddress: '',
+  permanentAddress: '',
+  pinCode: '',
+   category: '',
+    consultationMode: '',
+    workingHoursStart: '',
+    workingHoursEnd: '',
+    languageKnown: '',
+     
+     
+   
+  
+    
+    
   });
 
 
@@ -123,9 +145,19 @@ const handleLanguagesChange = (e) => {
 const validateStep1 = () => {
     const errors = {};
 
-    if (!formData.fullName.trim()) {
-      errors.fullName = "Full name is required";
+   
+  if (!formData.firstName.trim()) {
+      errors.firstName = "First name is required";
     }
+
+ if (!formData.lastName.trim()) {
+      errors.lastName = "Last name is required";
+    }
+
+
+
+
+
     if (!formData.gender) {
       errors.gender = "Gender is required";
     }
@@ -138,9 +170,9 @@ const validateStep1 = () => {
     if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       errors.email = "Valid email is required";
     }
-    if (!/^\d{12}$/.test(formData.aadharNumber)) {
-      errors.aadharNumber = "Aadhar number must be 12 digits";
-    }
+    if (!formData.documentType) {
+    errors.documentType = 'Please select a document type';
+  }
     if (!formData.profilePicture) {
       errors.profilePicture = "Profile picture is required";
     }
@@ -155,22 +187,30 @@ const validateStep1 = () => {
 const validateStep2 = () => {
   const errors = {};
 
-  if (!formData.city.trim()) {
-    errors.city = "City / Town is required";
+  if (!formData.country.trim()) {
+    errors.country = 'Country is required';
   }
+
   if (!formData.state.trim()) {
-    errors.state = "State is required";
+    errors.state = 'State is required';
   }
-  if (!formData.pinCode.trim()) {
-    errors.pinCode = "Pin code is required";
-  } else if (!/^\d{5,6}$/.test(formData.pinCode.trim())) {
-    errors.pinCode = "Enter a valid 5 or 6 digit pin code";
+
+  if (!formData.city.trim()) {
+    errors.city = 'City or town is required';
   }
+
   if (!formData.currentOfficeAddress.trim()) {
-    errors.currentOfficeAddress = "Current office address is required";
+    errors.currentOfficeAddress = 'Current office address is required';
   }
+
   if (!formData.permanentAddress.trim()) {
-    errors.permanentAddress = "Permanent address is required";
+    errors.permanentAddress = 'Permanent address is required';
+  }
+
+    if (!formData.pinCode.trim()) {
+    errors.pinCode = 'Pin code is required';
+  } else if (!/^\d{5,6}$/.test(formData.pinCode.trim())) {
+    errors.pinCode = 'Pin code must be 5 or 6 digits';
   }
 
   setFormErrors(errors);
@@ -180,29 +220,41 @@ const validateStep2 = () => {
 const validateStep3 = () => {
   let errors = {};
 
-  if (formData.categories.length === 0) {
-    errors.categories = "Please select at least one category.";
-  } else if (formData.categories.includes("Other") && !formData.otherCategory.trim()) {
-    errors.categories = "Please specify the 'Other' category.";
-  }
+  if (!formData.category) {
+      errors.category = 'Category is required';
+    }
+    if (formData.category === 'Others' && !formData.otherCategory.trim()) {
+      errors.otherCategory = 'Please specify other category';
+    }
+  
+    if (!formData.consultationMode) {
+      errors.consultationMode = 'Preferred consultation mode is required';
+    }
+    if (!formData.advocateType) {
+      errors.advocateType = 'Preferred advocate type is required';
+    }
+    if (!formData.languageKnown) {
+      errors.languageKnown = 'Language is required';
+    }
+    if (formData.languageKnown === 'Other' && !formData.otherLanguage.trim()) {
+      errors.otherLanguage = 'Please specify other language';
+    }
+    if (!formData.legalIssue.trim()) {
+      errors.legalIssue = 'Please describe your legal issue';
+    }
+     if (!formData.specialization) {
+      errors.specialization = 'Specialization is required';
+    }
+    if (!formData.subSpecialization) {
+      errors.subSpecialization = 'Sub-department is required';
+    }
+    // Optional: validate working hours
+    if (formData.workingHoursStart && formData.workingHoursEnd) {
+      if (formData.workingHoursEnd <= formData.workingHoursStart) {
+        errors.workingHours = 'End time must be after start time';
+      }
+    }
 
-  if (!formData.advocateType) {
-    errors.advocateType = "Please select advocate type.";
-  }
-
-  if (!formData.legalIssue.trim()) {
-    errors.legalIssue = "Please describe your legal issue.";
-  }
-
-  if (formData.consultationModes.length === 0) {
-    errors.consultationModes = "Please select at least one consultation mode.";
-  }
-
-  if (formData.languagesKnown.length === 0) {
-    errors.languagesKnown = "Please select at least one language.";
-  } else if (formData.languagesKnown.includes("Other") && !formData.otherLanguage.trim()) {
-    errors.languagesKnown = "Please specify the 'Other' language.";
-  }
 
   setFormErrors(errors);
   return Object.keys(errors).length === 0;
@@ -210,58 +262,33 @@ const validateStep3 = () => {
 
 
 
+
+
+
 const validateStep4 = () => {
   let errors = {};
   let isValid = true;
 
-  if (formData.subscriptions.length === 0) {
-    errors.subscriptions = "Please select at least one subscription option.";
-    isValid = false;
-  }
+  if (!formData.declarations || formData.declarations.length === 0) {
+      errors.declarations = 'Please accept at least one declaration.';
+    }
+    if (!formData.signature) {
+      errors.signature = 'Please upload your signature.';
+    }
+    if (!formData.date) {
+      errors.date = 'Please select a date.';
+    }
+    if (!formData.termsAccepted) {
+      errors.termsAccepted = 'You must accept the Terms & Conditions.';
+    }
 
-  if (formData.paymentModes.length === 0) {
-    errors.paymentModes = "Please select at least one payment mode.";
-    isValid = false;
-  }
-
-  if (
-    formData.paymentModes.includes("Other") &&
-    !formData.otherPaymentMode.trim()
-  ) {
-    errors.otherPaymentMode = "Please specify other payment mode.";
-    isValid = false;
-  }
-
-  setFormErrors(prev => ({ ...prev, ...errors }));
-  return isValid;
-};
-
-
-
-
-const validateStep5 = () => {
-  let errors = {};
-  let isValid = true;
-
-  if (formData.declarations.length === 0) {
-    errors.declarations = "Please check at least one declaration.";
-    isValid = false;
-  }
-  if (!formData.signature.trim()) {
-    errors.signature = "Signature is required.";
-    isValid = false;
-  }
-  if (!formData.date) {
-    errors.date = "Date is required.";
-    isValid = false;
-  }
 
   setFormErrors(prev => ({ ...prev, ...errors }));
   return isValid;
 };
 
 const handleFinalSubmit = async () => {
-  if (validateStep5()) {
+  if (validateStep4()) {
     try {
       // await axios.post('/api/submit', formData);
       Swal.fire({
@@ -446,10 +473,10 @@ const handleCourtChange = (e) => {
         className=" mx-auto p-8 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black lg:w-[1200px]"
       >
         {/* Step Indicator */}
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-56 mb-6">
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-72 mb-6 ml-9">
           {[
             'Personal Details', 
-            'Address & Location ', '  Legal Help Required ', '  Subscription & Packages ', '  Declarations '
+            'Address & Location ', '  Legal Help Required ',  '  Declarations '
           ].map((label, index) => (
             <div
               key={index}
@@ -467,18 +494,44 @@ const handleCourtChange = (e) => {
           {step === 1 && (
             <>
             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1100px] ml-4">
-              <div>
-  <label className="block mb-1">Full Name *</label>
+             
+
+
+ <div>
+  <label className="block mb-1">First Name *</label>
   <input
-    name="fullName"
-    value={formData.fullName}
+    name="firstName"
+    value={formData.firstName}
     onChange={handleChange}
-    placeholder="Enter your full name"
+    placeholder="Enter your first name"
     className="w-full border rounded px-3 py-2 text-black"
     required
   />
-    {formErrors.fullName && <p className="text-red-500 text-sm">{formErrors.fullName}</p>}
+  {formErrors.firstName && (
+    <p className="text-red-500 text-sm">{formErrors.firstName}</p>
+  )}
 </div>
+
+
+<div>
+  <label className="block mb-1">Last Name *</label>
+  <input
+    name="lastName"
+    value={formData.lastName}
+    onChange={handleChange}
+    placeholder="Enter your last name"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+  {formErrors.lastName && (
+    <p className="text-red-500 text-sm">{formErrors.lastName}</p>
+  )}
+</div>
+
+
+
+
+
 
 
   <div>
@@ -545,17 +598,25 @@ const handleCourtChange = (e) => {
 </div>
 
 <div>
-  <label className="block mb-1">Aadhar Number *</label>
-  <input
-    name="aadharNumber"
-    value={formData.aadharNumber}
+  <label className="block mb-1">Document / Proof Type *</label>
+  <select
+    name="documentType"
+    value={formData.documentType}
     onChange={handleChange}
-    placeholder="Enter 12-digit Aadhar number"
-    maxLength={12}
     className="w-full border rounded px-3 py-2 text-black"
     required
-  />
-    {formErrors.aadharNumber && <p className="text-red-500 text-sm">{formErrors.aadharNumber}</p>}
+  >
+    <option value="">Select document type</option>
+    <option value="aadhar">Aadhar Card</option>
+    <option value="pan">PAN Card</option>
+    <option value="passport">Passport</option>
+    <option value="voter">Voter ID</option>
+     <option value="voter">Driving Licence</option>
+    {/* add more as needed */}
+  </select>
+  {formErrors.documentType && (
+    <p className="text-red-500 text-sm">{formErrors.documentType}</p>
+  )}
 </div>
 
 <div className="md:col-span-2">
@@ -599,18 +660,21 @@ const handleCourtChange = (e) => {
              {step === 2 && (
             <>
              <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-             <div>
-  <label className="block mb-1">City / Town*: </label>
+
+
+<div>
+  <label className="block mb-1">Country*:</label>
   <input
-    name="city"
-    value={formData.city}
+    name="country"
+    value={formData.country}
     onChange={handleChange}
     className="w-full border rounded px-3 py-2 text-black lg:w-[600px]"
-   placeholder="Enter your city or town"
+    placeholder="Enter your country"
     required
   />
-     {formErrors.city && <p className="text-red-500 text-sm">{formErrors.city}</p>}
+  {formErrors.country && <p className="text-red-500 text-sm">{formErrors.country}</p>}
 </div>
+
 
 
 
@@ -628,19 +692,22 @@ const handleCourtChange = (e) => {
 </div>
 
 
-<div>
-  <label className="block mb-1">Pin Code*: </label>
+             <div>
+  <label className="block mb-1">City / Town*: </label>
   <input
-    type="text"
-    name="pinCode"
-    value={formData.pinCode}
+    name="city"
+    value={formData.city}
     onChange={handleChange}
-    placeholder="Enter your pin code"
     className="w-full border rounded px-3 py-2 text-black lg:w-[600px]"
+   placeholder="Enter your city or town"
     required
   />
-   {formErrors.pinCode && <p className="text-red-500 text-sm">{formErrors.pinCode}</p>}
+     {formErrors.city && <p className="text-red-500 text-sm">{formErrors.city}</p>}
 </div>
+
+
+
+
 
 
 <div>
@@ -672,6 +739,23 @@ const handleCourtChange = (e) => {
 </div>
 
 
+
+
+<div>
+  <label className="block mb-1">Pin Code*: </label>
+  <input
+    type="text"
+    name="pinCode"
+    value={formData.pinCode}
+    onChange={handleChange}
+    placeholder="Enter your pin code"
+    className="w-full border rounded px-3 py-2 text-black lg:w-[450px]"
+    required
+  />
+   {formErrors.pinCode && <p className="text-red-500 text-sm">{formErrors.pinCode}</p>}
+</div>
+
+
 </div>
 
 
@@ -699,331 +783,201 @@ const handleCourtChange = (e) => {
             <>
  <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
 
+  <div className="mt-4">
+        <label className="block mb-1 font-semibold">Category *</label>
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          required
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="">Select category</option>
+          <option value="Civil">Civil</option>
+          <option value="Criminal">Criminal</option>
+          <option value="Corporate">Corporate</option>
+          <option value="Tax">Tax</option>
+          <option value="Intellectual Property">Intellectual Property</option>
+          <option value="Others">Others</option>
+        </select>
+        {formData.category === 'Others' && (
+          <input
+            type="text"
+            name="otherCategory"
+            value={formData.otherCategory}
+            onChange={handleChange}
+            placeholder="Please specify"
+            className="mt-2 w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300"
+          />
+        )}
+        {formErrors.category && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.category}</p>
+        )}
+        {formErrors.otherCategory && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.otherCategory}</p>
+        )}
+      </div>
 
+      {/* Sub-Department */}
+     {/* Specialization */}
+ <div className="mt-4">
+        <label className="block mb-1 font-semibold">Specialization *</label>
+        <select
+          name="specialization"
+          value={formData.specialization}
+          onChange={handleChange}
+          required
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[450px]"
+        >
+          <option value="" disabled>Select specialization</option>
+          {Object.keys(specializations).map((spec) => (
+            <option key={spec} value={spec}>{spec}</option>
+          ))}
+        </select>
+        {formErrors.specialization && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.specialization}</p>
+        )}
+      </div>
 
+      {/* Sub-Department */}
+      <div className="mt-4">
+        <label className="block mb-1 font-semibold">Sub-Department *</label>
+        <select
+          name="subSpecialization"
+          value={formData.subSpecialization}
+          onChange={handleChange}
+          required
+          disabled={!formData.specialization}
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="" disabled>Select sub-department</option>
+          {specializations[formData.specialization]?.map((sub) => (
+            <option key={sub} value={sub}>{sub}</option>
+          ))}
+        </select>
+        {formErrors.subSpecialization && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.subSpecialization}</p>
+        )}
+      </div>
 
+      {/* Preferred Consultation Mode */}
+      <div className="mt-4">
+        <label className="block mb-1 font-semibold">Preferred Consultation Mode *</label>
+        <select
+          name="consultationMode"
+          value={formData.consultationMode}
+          onChange={handleChange}
+          required
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[450px]"
+        >
+          <option value="">Select mode</option>
+          <option value="Phone">Phone</option>
+          <option value="Video">Video</option>
+          <option value="In-person">In-person</option>
+        </select>
+        {formErrors.consultationMode && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.consultationMode}</p>
+        )}
+      </div>
 
+      {/* Preferred Advocate Type */}
+      <div className="mt-4">
+        <label className="block mb-1 font-semibold">Preferred Advocate Type *</label>
+        <select
+          name="advocateType"
+          value={formData.advocateType}
+          onChange={handleChange}
+          required
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[630px]"
+        >
+          <option value="">Select advocate type</option>
+          <option value="Junior Advocate">Junior Advocate</option>
+          <option value="Experienced Advocate">Experienced Advocate</option>
+          <option value="Any">Any</option>
+        </select>
+        {formErrors.advocateType && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.advocateType}</p>
+        )}
+      </div>
 
-<div>
-  <label className="block mb-1">Looking For (Category)*:</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Civil"
-        checked={formData.categories.includes("Civil")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-        required={formData.categories.length === 0} // ensures at least one
-      />
-      Civil
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Criminal"
-        checked={formData.categories.includes("Criminal")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Criminal
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Family"
-        checked={formData.categories.includes("Family")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Family
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Property"
-        checked={formData.categories.includes("Property")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Property
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Divorce"
-        checked={formData.categories.includes("Divorce")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Divorce
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Employment"
-        checked={formData.categories.includes("Employment")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Employment
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Cyber Crime"
-        checked={formData.categories.includes("Cyber Crime")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Cyber Crime
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="categories"
-        value="Other"
-        checked={formData.categories.includes("Other")}
-        onChange={handleCategoryChange}
-        className="mr-2"
-      />
-      Other:
-      <input
-        type="text"
-        name="otherCategory"
-        value={formData.otherCategory || ''}
-        onChange={handleChange}
-        placeholder="Specify"
-        className="ml-2 border rounded px-2 py-1 text-red-700 flex-1 lg:flex-none lg:w-[450px]"
-      />
-    </label>
-  </div>
-  {formErrors.categories && (
-    <p className="text-red-500 text-sm">{formErrors.categories}</p>
-  )}
-</div>
+      {/* Preferred Consultation Time */}
+      <div className="mt-4">
+        <label className="block mb-1 font-semibold">Preferred Consultation Time</label>
+        <div className="flex space-x-3">
+          <input
+            type="time"
+            name="workingHoursStart"
+            value={formData.workingHoursStart}
+            onChange={handleChange}
+            className="w-1/2 border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[225px]"
+          />
+          <input
+            type="time"
+            name="workingHoursEnd"
+            value={formData.workingHoursEnd}
+            onChange={handleChange}
+            className="w-1/2 border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[225px]"
+          />
+        </div>
+        {formErrors.workingHours && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.workingHours}</p>
+        )}
+      </div>
 
+      {/* Languages Known */}
+      <div className="mt-4">
+        <label className="block mb-1 font-semibold">Languages Known *</label>
+        <select
+          name="languageKnown"
+          value={formData.languageKnown}
+          onChange={handleChange}
+          required
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[630px]"
+        >
+          <option value="">Select language</option>
+          <option value="English">English</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Other">Other</option>
+        </select>
+        {formData.languageKnown === "Other" && (
+          <input
+            type="text"
+            name="otherLanguage"
+            value={formData.otherLanguage}
+            onChange={handleChange}
+            placeholder="Specify other language"
+            required
+            className="mt-2 w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[450px]"
+          />
+        )}
+        {formErrors.languageKnown && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.languageKnown}</p>
+        )}
+        {formErrors.otherLanguage && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.otherLanguage}</p>
+        )}
+      </div>
 
-<div>
-  <label htmlFor="subDepartment" className="block mb-1">
-    Sub Department (Optional):
-  </label>
-  <input
-    id="subDepartment"
-    type="text"
-    name="subDepartment"
-    value={formData.subDepartment}
-    onChange={handleChange}
-    placeholder="Enter sub department"
-    className="w-full border rounded px-3 py-2 text-black lg:w-[450px]"
-  />
-</div>
-
-
-
-
-
-
-<div>
-  <label className="block mb-1">Preferred Advocate Type*:</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="radio"
-        name="advocateType"
-        value="Junior Advocate"
-        checked={formData.advocateType === "Junior Advocate"}
-        onChange={handleChange}
-        className="mr-2"
-        required
-      />
-      Junior Advocate
-    </label>
-    <label className="flex items-center">
-      <input
-        type="radio"
-        name="advocateType"
-        value="Experienced Advocate"
-        checked={formData.advocateType === "Experienced Advocate"}
-        onChange={handleChange}
-        className="mr-2"
-      />
-      Experienced Advocate
-    </label>
-    <label className="flex items-center">
-      <input
-        type="radio"
-        name="advocateType"
-        value="Any"
-        checked={formData.advocateType === "Any"}
-        onChange={handleChange}
-        className="mr-2"
-      />
-      Any
-    </label>
-  </div>
-  {formErrors.advocateType && (
-    <p className="text-red-500 text-sm">{formErrors.advocateType}</p>
-  )}
-</div>
-
-
-
-<div>
-  <label htmlFor="legalIssue" className="block mb-1">
-    Brief About Your Legal Issue*:
-  </label>
-  <textarea
-    id="legalIssue"
-    name="legalIssue"
-    value={formData.legalIssue}
-    onChange={handleChange}
-    placeholder="Describe your issue briefly"
-    className="w-full border rounded px-3 py-2 text-black lg:w-[450px]"
-    required
-    rows={4} // adjust rows to control height
-  ></textarea>
-  {formErrors.legalIssue && (
-    <p className="text-red-500 text-sm">{formErrors.legalIssue}</p>
-  )}
-</div>
-
-
-
-<div>
-  <label className="block mb-1">Preferred Consultation Mode*:</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="consultationModes"
-        value="Phone"
-        checked={formData.consultationModes.includes("Phone")}
-        onChange={handleConsultationModeChange}
-        className="mr-2"
-        required={formData.consultationModes.length === 0}
-      />
-      Phone
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="consultationModes"
-        value="Video"
-        checked={formData.consultationModes.includes("Video")}
-        onChange={handleConsultationModeChange}
-        className="mr-2"
-      />
-      Video
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="consultationModes"
-        value="In-person"
-        checked={formData.consultationModes.includes("In-person")}
-        onChange={handleConsultationModeChange}
-        className="mr-2"
-      />
-      In-person
-    </label>
-  </div>
-  {formErrors.consultationModes && (
-    <p className="text-red-500 text-sm">{formErrors.consultationModes}</p>
-  )}
-</div>
-
-
-
-
-<div>
-  <label htmlFor="consultationTime" className="block mb-1">
-    Preferred Consultation Time:
-  </label>
-  <input
-    id="consultationTime"
-    type="text"
-    name="consultationTime"
-    value={formData.consultationTime}
-    onChange={handleChange}
-    placeholder="e.g., 10:00 AM - 11:00 AM"
-    className="w-full border rounded px-3 py-2 text-black lg:w-[450px]"
-  />
-  {formErrors.consultationTime && (
-    <p className="text-red-500 text-sm">{formErrors.consultationTime}</p>
-  )}
-</div>
-
-
-
-
-
-<div>
-  <label className="block mb-1">Preferred Language: </label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="English"
-        checked={formData.languagesKnown.includes("English")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-        required={formData.languagesKnown.length === 0}
-      />
-      English
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="Hindi"
-        checked={formData.languagesKnown.includes("Hindi")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-      />
-      Hindi
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="Telugu"
-        checked={formData.languagesKnown.includes("Telugu")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-      />
-      Telugu
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="Other"
-        checked={formData.languagesKnown.includes("Other")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-      />
-      Other: 
-      <input
-        type="text"
-        name="otherLanguage"
-        value={formData.otherLanguage}
-        onChange={handleChange}
-        placeholder="Specify"
-        className="ml-2 border rounded px-2 py-1 text-black flex-1 lg:flex-none lg:w-[350px]"
-      />
-    </label>
-  </div>
-    {formErrors.languagesKnown && <p className="text-red-500 text-sm">{formErrors.languagesKnown}</p>}
-</div>
+      {/* Brief About Legal Issue */}
+      <div className="mt-4">
+        <label htmlFor="legalIssue" className="block mb-1 font-semibold">
+          Brief About Your Legal Issue *
+        </label>
+        <textarea
+          id="legalIssue"
+          name="legalIssue"
+          value={formData.legalIssue}
+          onChange={handleChange}
+          placeholder="Describe your issue briefly"
+          rows={4}
+          required
+          className="w-full border rounded px-3 py-2 text-black focus:outline-none focus:ring focus:border-blue-300 lg:w-[450px]"
+        ></textarea>
+        {formErrors.legalIssue && (
+          <p className="text-red-500 text-sm mt-1">{formErrors.legalIssue}</p>
+        )}
+      </div>
 
 </div>
 
@@ -1059,144 +1013,21 @@ const handleCourtChange = (e) => {
 
           
 
-            {step === 4 && (
-            <>
-             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-              <div className="mt-4">
-  <label className="block mb-1 font-semibold">Subscription & Packages</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="subscriptions"
-        value="Free Basic Listing"
-        checked={formData.subscriptions.includes("Free Basic Listing")}
-        onChange={handleSubscriptionChange}
-        className="mr-2"
-      />
-      Free Basic Listing
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="subscriptions"
-        value="Premium Plan – ₹499/month"
-        checked={formData.subscriptions.includes("Premium Plan – ₹499/month")}
-        onChange={handleSubscriptionChange}
-        className="mr-2"
-      />
-      Premium Plan – ₹499/month
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="subscriptions"
-        value="Verified Badge – ₹999/year"
-        checked={formData.subscriptions.includes("Verified Badge – ₹999/year")}
-        onChange={handleSubscriptionChange}
-        className="mr-2"
-      />
-      Verified Badge – ₹999/year
-    </label>
-  </div>
-
-   {formErrors.subscriptions && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.subscriptions}</p>
-    )}
-
-  <label className="block mt-3 mb-1">Mode of Payment:</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="UPI"
-        checked={formData.paymentModes.includes("UPI")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      UPI
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="Card"
-        checked={formData.paymentModes.includes("Card")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      Card
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="Net Banking"
-        checked={formData.paymentModes.includes("Net Banking")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      Net Banking
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="Other"
-        checked={formData.paymentModes.includes("Other")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      Other: 
-      <input
-        type="text"
-        name="otherPaymentMode"
-        value={formData.otherPaymentMode}
-        onChange={handleChange}
-        placeholder="Specify"
-        disabled={!formData.paymentModes.includes("Other")}
-        className="ml-2 border rounded px-2 py-1 flex-1 disabled:bg-gray-100"
-      />
-    </label>
-  </div>
-   {formErrors.paymentModes && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.paymentModes}</p>
-    )}
-    {formErrors.otherPaymentMode && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.otherPaymentMode}</p>
-    )}
-</div>
-</div>
-             
-              <div className="md:col-span-2 flex justify-between">
-                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
-              <button
-    type="button"
-    onClick={() => {
-      if (validateStep4()) {
-        nextStep();
-      }
-    }}
-    className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
-  >
-    Next
-  </button>
-              </div>
-            </>
-          )}
-            
-
-
+          
            
          
           {/* Step 8: Password & Declarations */}
-          {step === 5 && (
+          {step === 4 && (
             <>
              <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-             <div className="mt-6">
+
+
+
+              
+                
+<div className="mt-6">
   <label className="block mb-2 font-semibold">Declarations</label>
-  
+
   <div className="space-y-2">
     <label className="flex items-start">
       <input
@@ -1210,7 +1041,7 @@ const handleCourtChange = (e) => {
       />
       <span>I hereby declare that all the above information is true and correct to the best of my knowledge.</span>
     </label>
-    
+
     <label className="flex items-start">
       <input
         type="checkbox"
@@ -1222,7 +1053,7 @@ const handleCourtChange = (e) => {
       />
       <span>I agree to abide by the terms and conditions of E-Advocate Services and BCI norms.</span>
     </label>
-    
+
     <label className="flex items-start">
       <input
         type="checkbox"
@@ -1232,30 +1063,28 @@ const handleCourtChange = (e) => {
         onChange={handleDeclarationChange}
         className="mt-1 mr-2"
       />
-      <span>I understand that all advocate-client communication is confidential and abides by legal ethics. </span>
+      <span>I consent to share my profile with clients registered on this platform.</span>
     </label>
   </div>
 
-   {formErrors.declarations && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.declarations}</p>
-    )}
+  {formErrors.declarations && (
+    <p className="text-red-500 text-sm mt-1">{formErrors.declarations}</p>
+  )}
 
   <div className="mt-4">
-    <label className="block mb-1">Signature*: </label>
+    <label className="block mb-1">Signature*:</label>
     <input
-      type="text"
+      type="file"
       name="signature"
-      value={formData.signature}
-      onChange={handleChange}
-      placeholder="Enter your signature"
+      accept="image/*"
+      onChange={handleFileChange}
       className="w-full border rounded px-3 py-2 text-black"
       required
     />
+    {formErrors.signature && (
+      <p className="text-red-500 text-sm">{formErrors.signature}</p>
+    )}
   </div>
-
-   {formErrors.signature && (
-        <p className="text-red-500 text-sm mt-1">{formErrors.signature}</p>
-      )}
 
   <div className="mt-4">
     <label className="block mb-1">Date*: </label>
@@ -1267,11 +1096,14 @@ const handleCourtChange = (e) => {
       className="w-full border rounded px-3 py-2 text-black"
       required
     />
-      {formErrors.date && (
-        <p className="text-red-500 text-sm mt-1">{formErrors.date}</p>
-      )}
+    {formErrors.date && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.date}</p>
+    )}
   </div>
 </div>
+
+        
+
 </div>
 
 
@@ -1285,28 +1117,14 @@ const handleCourtChange = (e) => {
               </div>
               <div className="md:col-span-2 flex justify-between">
                 <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
-             <button
-  type="button"
-  onClick={() => {
-    if (validateStep5()) {
-      // Call submit logic here (e.g., API request)
-      // After successful submission, show success popup:
-      Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: 'Successfully Client Registered',
-        confirmButtonColor: '#6B46C1', // purple
-        confirmButtonText: 'OK'
-      }).then(() => {
-        // Optional: redirect, reset form, etc.
-        console.log("Form submitted!");
-      });
-    }
-  }}
-  className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
->
-  Submit
-</button>
+         <button
+          type="button"
+          onClick={handleFinalSubmit}
+          className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
+        >
+          Submit
+        </button>
+
 
               </div>
             </>

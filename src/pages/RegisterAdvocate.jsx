@@ -44,15 +44,37 @@ const RegisterAdvocate = () => {
   paymentModes: [],
   otherPaymentMode: '',
    courtOfPractice: [],
-  otherCourt: '',
-  barAssociation: '',
-   practiceLicense: null,
-   subDepartment: '',
+   languageKnown: '',
+   currentFirm: '',
+    designation: '',
+    workType: '',
+   
+    
+   
+  
+ 
+ country: '',
+  state: '',
+  city: '',
+  currentOfficeAddress: '',
+  permanentAddress: '',
+  pinCode: '',
+   
     availableFor: [],
      availableDays: [],
       declarations: [],
   signature: '',
   date: '',
+   documentType: '',
+     firstName: '',
+  lastName: '',
+   otherCourt: '',
+  category: '',
+  otherCategory: '',
+  barAssociation: '',
+  practiceLicense: null,
+   
+
   });
 
 
@@ -79,6 +101,22 @@ const handleFileChange = (e) => {
 };
 
 
+const handleDeclarationChange = (e) => {
+  const { value, checked } = e.target;
+  setFormData(prev => {
+    let updated = [...prev.declarations];
+    if (checked) {
+      updated.push(value);
+    } else {
+      updated = updated.filter(item => item !== value);
+    }
+    return { ...prev, declarations: updated };
+  });
+  setFormErrors(prev => ({
+    ...prev,
+    declarations: ''
+  }));
+};
 
 
 
@@ -103,9 +141,15 @@ const handleLanguagesChange = (e) => {
 const validateStep1 = () => {
     const errors = {};
 
-    if (!formData.fullName.trim()) {
-      errors.fullName = "Full name is required";
+    if (!formData.firstName.trim()) {
+      errors.firstName = "First name is required";
     }
+
+ if (!formData.lastName.trim()) {
+      errors.lastName = "Last name is required";
+    }
+
+
     if (!formData.gender) {
       errors.gender = "Gender is required";
     }
@@ -118,9 +162,10 @@ const validateStep1 = () => {
     if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       errors.email = "Valid email is required";
     }
-    if (!/^\d{12}$/.test(formData.aadharNumber)) {
-      errors.aadharNumber = "Aadhar number must be 12 digits";
-    }
+     if (!formData.documentType) {
+    errors.documentType = 'Please select a document type';
+  }
+    
     if (!formData.profilePicture) {
       errors.profilePicture = "Profile picture is required";
     }
@@ -164,25 +209,14 @@ const validateStep1 = () => {
 const validateStep3 = () => {
   const errors = {};
 
-  if (!formData.yearsOfExperience || formData.yearsOfExperience <= 0) {
-    errors.yearsOfExperience = "Enter valid years of experience";
-  }
-  if (!formData.specialization) {
-    errors.specialization = "Specialization is required";
-  }
-  if (!formData.subSpecialization) {
-    errors.subSpecialization = "Sub-specialization is required";
-  }
-  if (!formData.subDepartment) {
-    errors.subDepartment = "Sub department is required";
-  }
-  if (formData.courtOfPractice.length === 0) {
-    errors.courtOfPractice = "Select at least one court of practice";
-  }
-  if (!formData.practiceLicense) {
-    errors.practiceLicense = "Practice license upload is required";
-  }
-
+ 
+ if (!formData.courtOfPractice) errors.courtOfPractice = "Please select a court of practice";
+    if (!formData.specialization) errors.specialization = "Please select specialization";
+    if (!formData.subSpecialization) errors.subSpecialization = "Please select sub-specialization";
+    if (!formData.category) errors.category = "Please select category";
+    if (!formData.yearsOfExperience) errors.yearsOfExperience = "Please enter years of experience";
+    if (!formData.practiceLicense) errors.practiceLicense = "Please upload practice license";
+  
   setFormErrors(errors);
   return Object.keys(errors).length === 0;
 };
@@ -192,22 +226,30 @@ const validateStep3 = () => {
 const validateStep4 = () => {
   const errors = {};
 
-  if (!formData.city.trim()) {
-    errors.city = "City / Town is required";
+  if (!formData.country.trim()) {
+    errors.country = 'Country is required';
   }
+
   if (!formData.state.trim()) {
-    errors.state = "State is required";
+    errors.state = 'State is required';
   }
-  if (!formData.pinCode.trim()) {
-    errors.pinCode = "Pin code is required";
-  } else if (!/^\d{5,6}$/.test(formData.pinCode.trim())) {
-    errors.pinCode = "Enter a valid 5 or 6 digit pin code";
+
+  if (!formData.city.trim()) {
+    errors.city = 'City or town is required';
   }
+
   if (!formData.currentOfficeAddress.trim()) {
-    errors.currentOfficeAddress = "Current office address is required";
+    errors.currentOfficeAddress = 'Current office address is required';
   }
+
   if (!formData.permanentAddress.trim()) {
-    errors.permanentAddress = "Permanent address is required";
+    errors.permanentAddress = 'Permanent address is required';
+  }
+
+    if (!formData.pinCode.trim()) {
+    errors.pinCode = 'Pin code is required';
+  } else if (!/^\d{5,6}$/.test(formData.pinCode.trim())) {
+    errors.pinCode = 'Pin code must be 5 or 6 digits';
   }
 
   setFormErrors(errors);
@@ -219,23 +261,18 @@ const validateStep4 = () => {
 const validateStep5 = () => {
   const errors = {};
 
-  // Require at least one work type
-  if (formData.workTypes.length === 0) {
-    errors.workTypes = "Please select at least one work type";
-  }
+  if (!formData.workType) {
+      errors.workType = "Please select your work type";
+    } else if (formData.workType === "Other" && !formData.otherWorkType.trim()) {
+      errors.otherWorkType = "Please specify other work type";
+    }
 
-  // Require at least one language
-  if (formData.languagesKnown.length === 0) {
-    errors.languagesKnown = "Please select at least one language";
-  }
-
-  // If "Other" selected, make sure otherWorkType or otherLanguage is filled
-  if (formData.workTypes.includes("Other") && !formData.otherWorkType?.trim()) {
-    errors.workTypes = "Please specify the other work type";
-  }
-  if (formData.languagesKnown.includes("Other") && !formData.otherLanguage?.trim()) {
-    errors.languagesKnown = "Please specify the other language";
-  }
+    if (!formData.languageKnown) {
+      errors.languageKnown = "Please select a language";
+    } else if (formData.languageKnown === "Other" && !formData.otherLanguage.trim()) {
+      errors.otherLanguage = "Please specify other language";
+    }
+  
 
   setFormErrors(errors);
   return Object.keys(errors).length === 0;
@@ -243,34 +280,10 @@ const validateStep5 = () => {
 
 
 
+
+
+
 const validateStep6 = () => {
-  let errors = {};
-  let isValid = true;
-
-  if (formData.subscriptions.length === 0) {
-    errors.subscriptions = "Please select at least one subscription option.";
-    isValid = false;
-  }
-
-  if (formData.paymentModes.length === 0) {
-    errors.paymentModes = "Please select at least one payment mode.";
-    isValid = false;
-  }
-
-  if (
-    formData.paymentModes.includes("Other") &&
-    !formData.otherPaymentMode.trim()
-  ) {
-    errors.otherPaymentMode = "Please specify other payment mode.";
-    isValid = false;
-  }
-
-  setFormErrors(prev => ({ ...prev, ...errors }));
-  return isValid;
-};
-
-
-const validateStep7 = () => {
   let errors = {};
   let isValid = true;
 
@@ -294,29 +307,31 @@ const validateStep7 = () => {
 };
 
 
-const validateStep8 = () => {
+const validateStep7 = () => {
   let errors = {};
   let isValid = true;
 
-  if (formData.declarations.length === 0) {
-    errors.declarations = "Please check at least one declaration.";
-    isValid = false;
-  }
-  if (!formData.signature.trim()) {
-    errors.signature = "Signature is required.";
-    isValid = false;
-  }
-  if (!formData.date) {
-    errors.date = "Date is required.";
-    isValid = false;
-  }
+ if (formData.declarations.length === 0) {
+  errors.declarations = "Please check at least one declaration";
+}
+
+if (!formData.signature) {
+  errors.signature = "Please upload your signature";
+}
+
+if (!formData.date) {
+  errors.date = "Please select a date";
+}
+
 
   setFormErrors(prev => ({ ...prev, ...errors }));
   return isValid;
 };
 
+
+
 const handleFinalSubmit = async () => {
-  if (validateStep8()) {
+  if (validateStep7()) {
     try {
       // await axios.post('/api/submit', formData);
       Swal.fire({
@@ -384,19 +399,6 @@ const handlePaymentModeChange = (e) => {
 };
 
 
-const handleDeclarationChange = (e) => {
-  const { value, checked } = e.target;
-  setFormData((prev) => {
-    if (checked) {
-      return { ...prev, declarations: [...prev.declarations, value] };
-    } else {
-      return {
-        ...prev,
-        declarations: prev.declarations.filter((item) => item !== value),
-      };
-    }
-  });
-};
 
 
 
@@ -499,15 +501,15 @@ const handleCourtChange = (e) => {
         className=" mx-auto p-8 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black lg:w-[1400px]"
       >
         {/* Step Indicator */}
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-2 mb-6">
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-36 mb-6 ml-12 ">
           {[
             'Personal Details', 'Educational Details', 'Practice Information',
-            'Location Details', 'Career Info', 'Subscription', 'Availability', 'Declarations'
+            'Location Details', 'Career Info',  'Availability', 'Declarations'
           ].map((label, index) => (
             <div
               key={index}
               className={`text-center text-xs md:text-sm font-semibold pb-1 border-b-2 ${
-                step === index + 1 ? 'border-purple-500 text-purple-700' : 'border-gray-300 text-gray-500'
+                step === index + 1 ? 'border-purple-500 text-purple-700 lg:w-[150px]' : 'border-gray-300 text-gray-500 lg:w-[150px]'
               }`}
             >
               {label}
@@ -520,18 +522,42 @@ const handleCourtChange = (e) => {
           {step === 1 && (
             <>
             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-              <div>
-  <label className="block mb-1">Full Name *</label>
+
+
+           <div>
+  <label className="block mb-1">First Name *</label>
   <input
-    name="fullName"
-    value={formData.fullName}
+    name="firstName"
+    value={formData.firstName}
     onChange={handleChange}
-    placeholder="Enter your full name"
+    placeholder="Enter your first name"
     className="w-full border rounded px-3 py-2 text-black"
     required
   />
-    {formErrors.fullName && <p className="text-red-500 text-sm">{formErrors.fullName}</p>}
+  {formErrors.firstName && (
+    <p className="text-red-500 text-sm">{formErrors.firstName}</p>
+  )}
 </div>
+
+
+<div>
+  <label className="block mb-1">Last Name *</label>
+  <input
+    name="lastName"
+    value={formData.lastName}
+    onChange={handleChange}
+    placeholder="Enter your last name"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+  {formErrors.lastName && (
+    <p className="text-red-500 text-sm">{formErrors.lastName}</p>
+  )}
+</div>
+
+
+
+
 
 
   <div>
@@ -598,17 +624,25 @@ const handleCourtChange = (e) => {
 </div>
 
 <div>
-  <label className="block mb-1">Aadhar Number *</label>
-  <input
-    name="aadharNumber"
-    value={formData.aadharNumber}
+  <label className="block mb-1">Document / Proof Type *</label>
+  <select
+    name="documentType"
+    value={formData.documentType}
     onChange={handleChange}
-    placeholder="Enter 12-digit Aadhar number"
-    maxLength={12}
     className="w-full border rounded px-3 py-2 text-black"
     required
-  />
-    {formErrors.aadharNumber && <p className="text-red-500 text-sm">{formErrors.aadharNumber}</p>}
+  >
+    <option value="">Select document type</option>
+    <option value="aadhar">Aadhar Card</option>
+    <option value="pan">PAN Card</option>
+    <option value="passport">Passport</option>
+    <option value="voter">Voter ID</option>
+     <option value="voter">Driving Licence</option>
+    {/* add more as needed */}
+  </select>
+  {formErrors.documentType && (
+    <p className="text-red-500 text-sm">{formErrors.documentType}</p>
+  )}
 </div>
 
 <div className="md:col-span-2">
@@ -711,172 +745,165 @@ const handleCourtChange = (e) => {
           {step === 3 && (
             <>
              <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-              <div><label className="block mb-1">Years of Experience *</label><input type="number" name="yearsOfExperience" value={formData.yearsOfExperience} onChange={handleChange}  placeholder="e.g., 5" className="w-full border rounded px-3 py-2 text-black" required />
-                {formErrors.yearsOfExperience && <p className="text-red-500 text-sm">{formErrors.yearsOfExperience}</p>}
-              </div>
-
-
-              <div>
-                <label className="block mb-1">Specialization *</label>
-                <select name="specialization" value={formData.specialization} onChange={handleChange} className="w-full border rounded px-3 py-2 text-black" required>
-                  <option value="" disabled>Select specialization</option>
-                  {Object.keys(specializations).map((spec) => <option key={spec}>{spec}</option>)}
-                </select>
-                 {formErrors.specialization && <p className="text-red-500 text-sm">{formErrors.specialization}</p>}
-              </div>
-              {formData.specialization && (
-                <div className="md:col-span-2">
-                  <label className="block mb-1">Sub-Specialization *</label>
-                  <select name="subSpecialization" value={formData.subSpecialization} onChange={handleChange} className="w-full border rounded px-3 py-2 text-black" required>
-                    <option value="" disabled>Select sub-specialization</option>
-                    {specializations[formData.specialization].map((sub) => <option key={sub}>{sub}</option>)}
-                  </select>
-                    {formErrors.subSpecialization && <p className="text-red-500 text-sm">{formErrors.subSpecialization}</p>}
-                </div>
-              )}
-              {formData.subSpecialization && (
-                <div className="md:col-span-2">
-                  <label className="block mb-1">Sub Department *</label>
-                  <select name="subDepartment" value={formData.subDepartment} onChange={handleChange} className="w-full border rounded px-3 py-2 text-black" required>
-                    <option value="" disabled>Select sub department</option>
-                    {subDepartments[formData.subSpecialization]?.map((dep) => <option key={dep}>{dep}</option>)}
-                  </select>
-                   {formErrors.subDepartment && <p className="text-red-500 text-sm">{formErrors.subDepartment}</p>}
-                </div>
-              )}
-
- <div className="md:col-span-2">
-              <select
-  name="subDepartment"
-  value={formData.subDepartment}
-  onChange={handleChange}
-  className="w-full border rounded px-3 py-2 text-black"
-  required
->
-  <option value="" disabled>Select Sub Department...</option>
-  <option value="Corporate Law">Corporate Law</option>
-  <option value="Criminal Law">Criminal Law</option>
-  <option value="Civil Litigation">Civil Litigation</option>
-  <option value="Taxation">Taxation</option>
-  <option value="Intellectual Property">Intellectual Property</option>
-  <option value="Family Law">Family Law</option>
-  <option value="Labor and Employment">Labor and Employment</option>
-  <option value="Other">Other</option>
-</select>
-</div>
-
-
+            
 <div className="mt-4">
-  <label className="block mb-1">Court of Practice*: </label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="courtOfPractice"
-        value="Supreme Court"
-        checked={formData.courtOfPractice.includes("Supreme Court")}
-        onChange={handleCourtChange}
-        className="mr-2"
-        required={formData.courtOfPractice.length === 0} // at least one required
-      />
-      Supreme Court
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="courtOfPractice"
-        value="High Court"
-        checked={formData.courtOfPractice.includes("High Court")}
-        onChange={handleCourtChange}
-        className="mr-2"
-      />
-      High Court
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="courtOfPractice"
-        value="District Court"
-        checked={formData.courtOfPractice.includes("District Court")}
-        onChange={handleCourtChange}
-        className="mr-2"
-      />
-      District Court
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="courtOfPractice"
-        value="Family Court"
-        checked={formData.courtOfPractice.includes("Family Court")}
-        onChange={handleCourtChange}
-        className="mr-2"
-      />
-      Family Court
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="courtOfPractice"
-        value="Consumer Forum"
-        checked={formData.courtOfPractice.includes("Consumer Forum")}
-        onChange={handleCourtChange}
-        className="mr-2"
-      />
-      Consumer Forum
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="courtOfPractice"
-        value="Others"
-        checked={formData.courtOfPractice.includes("Others")}
-        onChange={handleCourtChange}
-        className="mr-2"
-      />
-      Others:
-      <input
-        type="text"
-        name="otherCourt"
-        value={formData.otherCourt}
-        onChange={handleChange}
-        placeholder="Specify"
-        disabled={!formData.courtOfPractice.includes("Others")}
-        className="ml-2 border rounded px-2 py-1 flex-1 disabled:bg-gray-100 text-black"
-      />
-    </label>
-       {formErrors.courtOfPractice && <p className="text-red-500 text-sm">{formErrors.courtOfPractice}</p>}
-  </div>
-</div>
+        <label className="block mb-1">Court of Practice *</label>
+        <select
+          name="courtOfPractice"
+          value={formData.courtOfPractice}
+          onChange={handleChange}
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        >
+          <option value="">Select court</option>
+          <option value="Supreme Court">Supreme Court</option>
+          <option value="High Court">High Court</option>
+          <option value="District Court">District Court</option>
+          <option value="Family Court">Family Court</option>
+          <option value="Consumer Forum">Consumer Forum</option>
+          <option value="Others">Others</option>
+        </select>
 
-<div className="mt-4">
-  <label className="block mb-1">Bar Association Name (If any): </label>
-  <input
-    type="text"
-    name="barAssociation"
-    value={formData.barAssociation}
-    onChange={handleChange}
-    placeholder="Enter your bar association name"
-    className="w-full border rounded px-3 py-2 text-black"
-  />
-</div>
+        {formData.courtOfPractice === 'Others' && (
+          <input
+            type="text"
+            name="otherCourt"
+            value={formData.otherCourt}
+            onChange={handleChange}
+            placeholder="Please specify"
+            className="mt-2 w-full border rounded px-3 py-2 text-black"
+          />
+        )}
 
+        {formErrors.courtOfPractice && (
+          <p className="text-red-500 text-sm">{formErrors.courtOfPractice}</p>
+        )}
+      </div>
 
-<div className="mt-4">
-  <label className="block mb-1">
-    Practice License Upload* <span className="text-gray-500 text-sm">( .pdf / .jpg )</span>
-  </label>
-  <input
-    type="file"
-    name="practiceLicense"
-    accept=".pdf, .jpg"
-    onChange={handleFileChange}
-    className="w-full border rounded px-3 py-2 text-black"
-    required
-  />
-  {formErrors.practiceLicense && <p className="text-red-500 text-sm">{formErrors.practiceLicense}</p>}
-</div>
+      {/* Specialization */}
+      <div className="mt-4">
+        <label className="block mb-1">Specialization/Department *</label>
+        <select
+          name="specialization"
+          value={formData.specialization}
+          onChange={handleChange}
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        >
+          <option value="" disabled>Select specialization</option>
+          {Object.keys(specializations).map(spec => (
+            <option key={spec} value={spec}>{spec}</option>
+          ))}
+        </select>
+        {formErrors.specialization && (
+          <p className="text-red-500 text-sm">{formErrors.specialization}</p>
+        )}
+      </div>
 
+      {/* Sub-Specialization */}
+      {formData.specialization && (
+        <div className="md:col-span-2 mt-4">
+          <label className="block mb-1">Sub-Department *</label>
+          <select
+            name="subSpecialization"
+            value={formData.subSpecialization}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2 text-black"
+            required
+          >
+            <option value="" disabled>Select sub-specialization</option>
+            {specializations[formData.specialization].map(sub => (
+              <option key={sub} value={sub}>{sub}</option>
+            ))}
+          </select>
+          {formErrors.subSpecialization && (
+            <p className="text-red-500 text-sm">{formErrors.subSpecialization}</p>
+          )}
+        </div>
+      )}
+
+      {/* Category */}
+      <div className="mt-4">
+        <label className="block mb-1">Category *</label>
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        >
+          <option value="">Select category</option>
+          <option value="Civil">Civil</option>
+          <option value="Criminal">Criminal</option>
+          <option value="Corporate">Corporate</option>
+          <option value="Tax">Tax</option>
+          <option value="Intellectual Property">Intellectual Property</option>
+          <option value="Others">Others</option>
+        </select>
+
+        {formData.category === 'Others' && (
+          <input
+            type="text"
+            name="otherCategory"
+            value={formData.otherCategory}
+            onChange={handleChange}
+            placeholder="Please specify"
+            className="mt-2 w-full border rounded px-3 py-2 text-black"
+          />
+        )}
+
+        {formErrors.category && (
+          <p className="text-red-500 text-sm">{formErrors.category}</p>
+        )}
+      </div>
+
+      {/* Years of Experience */}
+      <div className="mt-4">
+        <label className="block mb-1">Years of Experience *</label>
+        <input
+          type="number"
+          name="yearsOfExperience"
+          value={formData.yearsOfExperience}
+          onChange={handleChange}
+          placeholder="e.g., 5"
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        />
+        {formErrors.yearsOfExperience && (
+          <p className="text-red-500 text-sm">{formErrors.yearsOfExperience}</p>
+        )}
+      </div>
+
+      {/* Bar Association */}
+      <div className="mt-4">
+        <label className="block mb-1">Bar Association Name (If any):</label>
+        <input
+          type="text"
+          name="barAssociation"
+          value={formData.barAssociation}
+          onChange={handleChange}
+          placeholder="Enter your bar association name"
+          className="w-full border rounded px-3 py-2 text-black"
+        />
+      </div>
+
+      {/* Practice License */}
+      <div className="mt-4">
+        <label className="block mb-1">
+          Practice License Upload* <span className="text-gray-500 text-sm">(.pdf / .jpg)</span>
+        </label>
+        <input
+          type="file"
+          name="practiceLicense"
+          accept=".pdf, .jpg"
+          onChange={handleFileChange}
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        />
+        {formErrors.practiceLicense && (
+          <p className="text-red-500 text-sm">{formErrors.practiceLicense}</p>
+        )}
+      </div>
 </div>
 
 
@@ -902,17 +929,19 @@ const handleCourtChange = (e) => {
              {step === 4 && (
             <>
              <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-             <div>
-  <label className="block mb-1">City / Town*: </label>
+
+
+<div>
+  <label className="block mb-1">Country*:</label>
   <input
-    name="city"
-    value={formData.city}
+    name="country"
+    value={formData.country}
     onChange={handleChange}
     className="w-full border rounded px-3 py-2 text-black"
-   placeholder="Enter your city or town"
+    placeholder="Enter your country"
     required
   />
-     {formErrors.city && <p className="text-red-500 text-sm">{formErrors.city}</p>}
+  {formErrors.country && <p className="text-red-500 text-sm">{formErrors.country}</p>}
 </div>
 
 
@@ -930,20 +959,21 @@ const handleCourtChange = (e) => {
     {formErrors.state && <p className="text-red-500 text-sm">{formErrors.state}</p>}
 </div>
 
-
-<div>
-  <label className="block mb-1">Pin Code*: </label>
+             <div>
+  <label className="block mb-1">City / Town*: </label>
   <input
-    type="text"
-    name="pinCode"
-    value={formData.pinCode}
+    name="city"
+    value={formData.city}
     onChange={handleChange}
-    placeholder="Enter your pin code"
     className="w-full border rounded px-3 py-2 text-black"
+   placeholder="Enter your city or town"
     required
   />
-   {formErrors.pinCode && <p className="text-red-500 text-sm">{formErrors.pinCode}</p>}
+     {formErrors.city && <p className="text-red-500 text-sm">{formErrors.city}</p>}
 </div>
+
+
+
 
 
 <div>
@@ -975,6 +1005,24 @@ const handleCourtChange = (e) => {
 </div>
 
 
+
+
+<div>
+  <label className="block mb-1">Pin Code*: </label>
+  <input
+    type="text"
+    name="pinCode"
+    value={formData.pinCode}
+    onChange={handleChange}
+    placeholder="Enter your pin code"
+    className="w-full border rounded px-3 py-2 text-black"
+    required
+  />
+   {formErrors.pinCode && <p className="text-red-500 text-sm">{formErrors.pinCode}</p>}
+</div>
+
+
+
 </div>
 
 
@@ -1003,175 +1051,94 @@ const handleCourtChange = (e) => {
  <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
 
 <div>
-  <label className="block mb-1">Current Firm / Organization (If any): </label>
-  <input
-    type="text"
-    name="currentFirm"
-    value={formData.currentFirm}
-    onChange={handleChange}
-    placeholder="Enter your current firm or organization"
-    className="w-full border rounded px-3 py-2 text-black"
-  />
-   {formErrors.currentFirm && <p className="text-red-500 text-sm">{formErrors.currentFirm}</p>}
-</div>
+        <label className="block mb-1">Current Firm / Organization (If any): </label>
+        <input
+          type="text"
+          name="currentFirm"
+          value={formData.currentFirm}
+          onChange={handleChange}
+          placeholder="Enter your current firm or organization"
+          className="w-full border rounded px-3 py-2 text-black"
+        />
+        {formErrors.currentFirm && <p className="text-red-500 text-sm">{formErrors.currentFirm}</p>}
+      </div>
+
+      <div>
+        <label className="block mb-1">Position / Designation: </label>
+        <input
+          type="text"
+          name="designation"
+          value={formData.designation}
+          onChange={handleChange}
+          placeholder="Enter your position or designation"
+          className="w-full border rounded px-3 py-2 text-black"
+        />
+        {formErrors.designation && <p className="text-red-500 text-sm">{formErrors.designation}</p>}
+      </div>
+
+      <div>
+        <label className="block mb-1">Work Type*:</label>
+        <select
+          name="workType"
+          value={formData.workType}
+          onChange={handleChange}
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        >
+          <option value="">Select work type</option>
+          <option value="Independent Advocate">Independent Advocate</option>
+          <option value="Law Firm Partner/Associate">Law Firm Partner/Associate</option>
+          <option value="Legal Advisor">Legal Advisor</option>
+          <option value="Government Lawyer">Government Lawyer</option>
+          <option value="In-house Counsel">In-house Counsel</option>
+          <option value="Other">Other</option>
+        </select>
+        {formData.workType === "Other" && (
+          <input
+            type="text"
+            name="otherWorkType"
+            value={formData.otherWorkType || ''}
+            onChange={handleChange}
+            placeholder="Specify other work type"
+            className="mt-2 border rounded px-3 py-2 w-full text-black"
+            required
+          />
+        )}
+        {formErrors.workType && <p className="text-red-500 text-sm">{formErrors.workType}</p>}
+        {formErrors.otherWorkType && <p className="text-red-500 text-sm">{formErrors.otherWorkType}</p>}
+      </div>
+
+      <div>
+        <label className="block mb-1">Languages Known*:</label>
+        <select
+          name="languageKnown"
+          value={formData.languageKnown}
+          onChange={handleChange}
+          className="w-full border rounded px-3 py-2 text-black"
+          required
+        >
+          <option value="">Select language</option>
+          <option value="English">English</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Telugu">Telugu</option>
+          <option value="Other">Other</option>
+        </select>
+        {formData.languageKnown === "Other" && (
+          <input
+            type="text"
+            name="otherLanguage"
+            value={formData.otherLanguage}
+            onChange={handleChange}
+            placeholder="Specify other language"
+            className="mt-2 border rounded px-3 py-2 w-full text-black"
+            required
+          />
+        )}
+        {formErrors.languageKnown && <p className="text-red-500 text-sm">{formErrors.languageKnown}</p>}
+        {formErrors.otherLanguage && <p className="text-red-500 text-sm">{formErrors.otherLanguage}</p>}
+      </div>
 
 
-<div>
-  <label className="block mb-1">Position / Designation: </label>
-  <input
-    type="text"
-    name="designation"
-    value={formData.designation}
-    onChange={handleChange}
-    placeholder="Enter your position or designation"
-    className="w-full border rounded px-3 py-2 text-black"
-  />
-   {formErrors.designation && <p className="text-red-500 text-sm">{formErrors.designation}</p>}
-</div>
-
-
-<div>
-  <label className="block mb-1">Work Type*: </label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="workTypes"
-        value="Independent Advocate"
-        checked={formData.workTypes.includes("Independent Advocate")}
-        onChange={handleWorkTypeChange}
-        className="mr-2"
-        required={formData.workTypes.length === 0} // make at least one required
-      />
-      Independent Advocate
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="workTypes"
-        value="Law Firm Partner/Associate"
-        checked={formData.workTypes.includes("Law Firm Partner/Associate")}
-        onChange={handleWorkTypeChange}
-        className="mr-2"
-      />
-      Law Firm Partner/Associate
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="workTypes"
-        value="Legal Advisor"
-        checked={formData.workTypes.includes("Legal Advisor")}
-        onChange={handleWorkTypeChange}
-        className="mr-2"
-      />
-      Legal Advisor
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="workTypes"
-        value="Government Lawyer"
-        checked={formData.workTypes.includes("Government Lawyer")}
-        onChange={handleWorkTypeChange}
-        className="mr-2"
-      />
-      Government Lawyer
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="workTypes"
-        value="In-house Counsel"
-        checked={formData.workTypes.includes("In-house Counsel")}
-        onChange={handleWorkTypeChange}
-        className="mr-2"
-      />
-      In-house Counsel
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="workTypes"
-        value="Other"
-        checked={formData.workTypes.includes("Other")}
-        onChange={handleWorkTypeChange}
-        className="mr-2"
-      />
-      Other: 
-      <input
-        type="text"
-        name="otherWorkType"
-        value={formData.otherWorkType || ''}
-        onChange={handleChange}
-        placeholder="Specify"
-        className="ml-2 border rounded px-2 py-1 flex-1 text-black"
-      />
-    </label>
-  </div>
-    {formErrors.workTypes && <p className="text-red-500 text-sm">{formErrors.workTypes}</p>}
-</div>
-
-
-<div>
-  <label className="block mb-1">Languages Known*: </label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="English"
-        checked={formData.languagesKnown.includes("English")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-        required={formData.languagesKnown.length === 0}
-      />
-      English
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="Hindi"
-        checked={formData.languagesKnown.includes("Hindi")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-      />
-      Hindi
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="Telugu"
-        checked={formData.languagesKnown.includes("Telugu")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-      />
-      Telugu
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="languagesKnown"
-        value="Other"
-        checked={formData.languagesKnown.includes("Other")}
-        onChange={handleLanguagesChange}
-        className="mr-2"
-      />
-      Other: 
-      <input
-        type="text"
-        name="otherLanguage"
-        value={formData.otherLanguage}
-        onChange={handleChange}
-        placeholder="Specify"
-        className="ml-2 border rounded px-2 py-1 flex-1 text-black"
-      />
-    </label>
-  </div>
-    {formErrors.languagesKnown && <p className="text-red-500 text-sm">{formErrors.languagesKnown}</p>}
-</div>
 
 </div>
             
@@ -1194,133 +1161,10 @@ const handleCourtChange = (e) => {
             </>
           )}
 
+           
+
+
             {step === 6 && (
-            <>
-             <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-              <div className="mt-4">
-  <label className="block mb-1 font-semibold">Subscription & Packages</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="subscriptions"
-        value="Free Basic Listing"
-        checked={formData.subscriptions.includes("Free Basic Listing")}
-        onChange={handleSubscriptionChange}
-        className="mr-2"
-      />
-      Free Basic Listing
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="subscriptions"
-        value="Premium Plan – ₹499/month"
-        checked={formData.subscriptions.includes("Premium Plan – ₹499/month")}
-        onChange={handleSubscriptionChange}
-        className="mr-2"
-      />
-      Premium Plan – ₹499/month
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="subscriptions"
-        value="Verified Badge – ₹999/year"
-        checked={formData.subscriptions.includes("Verified Badge – ₹999/year")}
-        onChange={handleSubscriptionChange}
-        className="mr-2"
-      />
-      Verified Badge – ₹999/year
-    </label>
-  </div>
-
-   {formErrors.subscriptions && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.subscriptions}</p>
-    )}
-
-  <label className="block mt-3 mb-1">Mode of Payment:</label>
-  <div className="space-y-1">
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="UPI"
-        checked={formData.paymentModes.includes("UPI")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      UPI
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="Card"
-        checked={formData.paymentModes.includes("Card")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      Card
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="Net Banking"
-        checked={formData.paymentModes.includes("Net Banking")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      Net Banking
-    </label>
-    <label className="flex items-center">
-      <input
-        type="checkbox"
-        name="paymentModes"
-        value="Other"
-        checked={formData.paymentModes.includes("Other")}
-        onChange={handlePaymentModeChange}
-        className="mr-2"
-      />
-      Other: 
-      <input
-        type="text"
-        name="otherPaymentMode"
-        value={formData.otherPaymentMode}
-        onChange={handleChange}
-        placeholder="Specify"
-        disabled={!formData.paymentModes.includes("Other")}
-        className="ml-2 border rounded px-2 py-1 flex-1 disabled:bg-gray-100"
-      />
-    </label>
-  </div>
-   {formErrors.paymentModes && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.paymentModes}</p>
-    )}
-    {formErrors.otherPaymentMode && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.otherPaymentMode}</p>
-    )}
-</div>
-</div>
-             
-              <div className="md:col-span-2 flex justify-between">
-                <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded-full">Back</button>
-              <button
-    type="button"
-    onClick={() => {
-      if (validateStep6()) {
-        nextStep();
-      }
-    }}
-    className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition"
-  >
-    Next
-  </button>
-              </div>
-            </>
-          )}
-            {step === 7 && (
             <>
  <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
 
@@ -1424,7 +1268,7 @@ const handleCourtChange = (e) => {
               <button
     type="button"
     onClick={() => {
-      if (validateStep7()) {
+      if (validateStep6()) {
         nextStep();
       }
     }}
@@ -1438,12 +1282,14 @@ const handleCourtChange = (e) => {
            
          
           {/* Step 8: Password & Declarations */}
-          {step === 8 && (
+          {step === 7 && (
             <>
              <div className="grid md:grid-cols-2 gap-8 mt-8 w-[1300px] ml-4">
-             <div className="mt-6">
+
+              
+<div className="mt-6">
   <label className="block mb-2 font-semibold">Declarations</label>
-  
+
   <div className="space-y-2">
     <label className="flex items-start">
       <input
@@ -1457,7 +1303,7 @@ const handleCourtChange = (e) => {
       />
       <span>I hereby declare that all the above information is true and correct to the best of my knowledge.</span>
     </label>
-    
+
     <label className="flex items-start">
       <input
         type="checkbox"
@@ -1469,7 +1315,7 @@ const handleCourtChange = (e) => {
       />
       <span>I agree to abide by the terms and conditions of E-Advocate Services and BCI norms.</span>
     </label>
-    
+
     <label className="flex items-start">
       <input
         type="checkbox"
@@ -1483,26 +1329,24 @@ const handleCourtChange = (e) => {
     </label>
   </div>
 
-   {formErrors.declarations && (
-      <p className="text-red-500 text-sm mt-1">{formErrors.declarations}</p>
-    )}
+  {formErrors.declarations && (
+    <p className="text-red-500 text-sm mt-1">{formErrors.declarations}</p>
+  )}
 
   <div className="mt-4">
-    <label className="block mb-1">Signature*: </label>
+    <label className="block mb-1">Signature*:</label>
     <input
-      type="text"
+      type="file"
       name="signature"
-      value={formData.signature}
-      onChange={handleChange}
-      placeholder="Enter your signature"
+      accept="image/*"
+      onChange={handleFileChange}
       className="w-full border rounded px-3 py-2 text-black"
       required
     />
+    {formErrors.signature && (
+      <p className="text-red-500 text-sm">{formErrors.signature}</p>
+    )}
   </div>
-
-   {formErrors.signature && (
-        <p className="text-red-500 text-sm mt-1">{formErrors.signature}</p>
-      )}
 
   <div className="mt-4">
     <label className="block mb-1">Date*: </label>
@@ -1514,16 +1358,15 @@ const handleCourtChange = (e) => {
       className="w-full border rounded px-3 py-2 text-black"
       required
     />
-      {formErrors.date && (
-        <p className="text-red-500 text-sm mt-1">{formErrors.date}</p>
-      )}
+    {formErrors.date && (
+      <p className="text-red-500 text-sm mt-1">{formErrors.date}</p>
+    )}
   </div>
 </div>
-</div>
 
 
 
-
+           </div>
 
 
               <div className="md:col-span-2 flex gap-2">
@@ -1535,7 +1378,7 @@ const handleCourtChange = (e) => {
              <button
   type="button"
   onClick={() => {
-    if (validateStep8()) {
+    if (validateStep7()) {
       // Call submit logic here (e.g., API request)
       // After successful submission, show success popup:
       Swal.fire({
