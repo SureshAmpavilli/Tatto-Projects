@@ -82,11 +82,7 @@ E-Advocate Services is a platform designed to connect clients with verified lega
 All complaints are confidential and handled as per IT Rules 2021 and BCI ethical guidelines.
           </p>
 
-             <p className="mb-4">
-          Would you like these notices delivered in a formatted Word or PDF file for easy integration into your app/website?
-          </p>
-
-
+           
 
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">

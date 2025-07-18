@@ -158,8 +158,7 @@ These third parties do not access legal or client-advocate communication.</li>
 
             </a>
           </p>
-          <p className='mb-6'>Would you like this delivered in Word or PDF format once file generation is available again?</p>
-
+         
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
             © {new Date().getFullYear()} AdvocateServices.com – All rights reserved.

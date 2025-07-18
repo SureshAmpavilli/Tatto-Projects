@@ -131,8 +131,7 @@ const HelpPage = () => {
             </ul>
           </section>
 
-          <p>Would you like me to export this help page content into a Word or PDF document for your mobile app/website integration?
-</p>
+        
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
             &copy; {new Date().getFullYear()} E-Advocate Services – All rights reserved.

@@ -102,11 +102,7 @@ User details and complaint data will not be disclosed to third parties except fo
 Latest versions are always published on our official app and website.
           </p>
 
-            <p className="mb-4">
-          Would you like me to prepare this as a Word or PDF document once document tools are available again?
-          </p>
-
- 
+          
 
 
 

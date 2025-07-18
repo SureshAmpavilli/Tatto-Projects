@@ -126,7 +126,7 @@ const EAdvocateCentersPage = () => {
             </ul>
           </section>
 
-          <p>Would you like this Centres Page content exported into a PDF or Word document for your web and app use?</p>
+        
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
             &copy; {new Date().getFullYear()} E-Advocate Services – All rights reserved.

@@ -120,8 +120,7 @@ We are not responsible for the accuracy of information provided by users.
 
            
           </p>
-          <p className='mb-6'>Would you like me to prepare this as a Word or PDF file for download?</p>
-
+        
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
             © {new Date().getFullYear()} AdvocateServices.com – All rights reserved.
           </div>

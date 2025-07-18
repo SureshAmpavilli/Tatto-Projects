@@ -208,10 +208,6 @@ Advocates Act, 1961	Only BCI-registered advocates allowed
 IT Act, 2000	User data protected under national law
 IT Rules, 2021	Includes grievance redressal and transparency</p>
 
-<p className='mb-6'>Would you like me to deliver this as a Word or PDF document formatted for your legal documentation or website section?</p>
-
-
-
 
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">

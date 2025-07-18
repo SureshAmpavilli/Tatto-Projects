@@ -132,7 +132,7 @@ We take reasonable care to select only compliant, secure, and ethical partners.
             </a>.
           </p>
 
-          <p className='mb-6'>Would you like this content delivered in Word or PDF format later when generation is available again?</p>
+        
 
           <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
             © {new Date().getFullYear()} AdvocateServices.com – All rights reserved.

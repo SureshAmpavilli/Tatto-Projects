@@ -135,9 +135,7 @@ Refunds will be returned to the original payment method (e.g., card, UPI, wallet
            
 
           </ul>
-          <p className="mb-6">
-          Would you like this content exported as a Word or PDF document for your website or policy page?
-          </p>
+         
 
 
 
