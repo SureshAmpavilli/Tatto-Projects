@@ -41,18 +41,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      // Simulated login check
-      if (
-        formData.email === "" &&
-        formData.password === "123456"
-      ) {
-        navigate("/layout"); // Redirect after successful login
-      } else {
-        setErrors({
-          ...errors,
-          password: "Invalid email or password.",
-        });
-      }
+      navigate("/layout"); // Login always succeeds after validation
     }
   };
 

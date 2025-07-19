@@ -172,9 +172,9 @@ const Header = () => {
           </div>
 
         
-          <span onClick={() => scrollToSection("connect")} className={navLink}>Blog</span>
+          <span onClick={() => scrollToSection("blog")} className={navLink}>Blog</span>
             <span onClick={() => scrollToSection("about")} className={navLink}>About</span>
-          <span onClick={() => scrollToSection("connect")} className={navLink}>Help</span>
+          <span onClick={() => scrollToSection("help")} className={navLink}>Help</span>
         </nav>
 
         {/* Desktop actions */}
@@ -219,7 +219,8 @@ const Header = () => {
             <span onClick={scrollToTop} className={navLink}>Home</span>
             <span onClick={() => scrollToSection("about")} className={navLink}>About</span>
             <span onClick={handleProfilesClick} className={navLink}>Browse Profiles</span>
-            <span onClick={() => scrollToSection("connect")} className={navLink}>Blog</span>
+            <span onClick={() => scrollToSection("blog")} className={navLink}>Blog</span>
+             <span onClick={() => scrollToSection("help")} className={navLink}>Help</span>
 
             <button
               onClick={() => { setOpen(false); navigate("/login"); }}

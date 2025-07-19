@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SuccessStoryCard from '../components/Sucuss';
+import Filters from '../components/Filter';
 
 const stories = [
   {
@@ -27,6 +29,8 @@ const stories = [
 ];
 
 const SuccessStoriesPage = () => {
+
+    const [activeTab, setActiveTab] = useState('client'); // client | advocate
   return (
     <div className="bg-gray-100 dark:bg-black text-gray-800 dark:text-gray-200">
       <Header />
@@ -69,7 +73,88 @@ const SuccessStoriesPage = () => {
             </a>
           </div>
 
-          <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
+          
+
+      <div className="bg-white dark:bg-black text-gray-900 dark:text-gray-100 p-6 max-w-5xl mx-auto">
+      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">
+        Success Stories – Real Experiences from Real Users
+      </h1>
+
+      {/* Tabs */}
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={() => setActiveTab('client')}
+          className={`px-4 py-2 rounded-t ${
+            activeTab === 'client'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 dark:bg-gray-700'
+          }`}
+        >
+          🙋 Client Stories
+        </button>
+        <button
+          onClick={() => setActiveTab('advocate')}
+          className={`px-4 py-2 rounded-t ${
+            activeTab === 'advocate'
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 dark:bg-gray-700'
+          }`}
+        >
+          🧑‍⚖️ Advocate Stories
+        </button>
+      </div>
+
+      {/* Filters */}
+      <Filters />
+
+      {/* Cards */}
+      <div className="grid md:grid-cols-2 gap-4 mt-4">
+        {activeTab === 'client' ? (
+          <>
+            <SuccessStoryCard
+              type="client"
+              title="Quick Settlement in Property Dispute"
+              department="Civil / Property Law"
+              location="Mumbai, Maharashtra"
+              testimonial="The platform helped me connect with a verified legal expert who resolved my case in 2 months."
+              duration="Feb 2024 – April 2024"
+              advocate="[Hidden / Displayed with Consent]"
+            />
+          </>
+        ) : (
+          <>
+            <SuccessStoryCard
+              type="advocate"
+              title="Successfully Defended a False Allegation"
+              department="Criminal Law"
+              location="Delhi NCR"
+              summary="Through this app, I received a case from a verified client. We achieved acquittal in 5 weeks."
+              clientType="Corporate / Individual"
+              duration="Jan–Feb 2024"
+            />
+          </>
+        )}
+      </div>
+
+      {/* CTA */}
+      <div className="flex justify-center mt-8">
+        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          📤 Share Your Experience
+        </button>
+      </div>
+
+      {/* Compliance note */}
+      <div className="mt-10 text-xs text-gray-600 dark:text-gray-400 border-t pt-4">
+        <p className="font-semibold mb-1">📜 BCI Norms Compliance:</p>
+        <ul className="list-disc list-inside space-y-1">
+          <li>❌ No promotions or guarantees.</li>
+          <li>✅ Only factual case summaries.</li>
+          <li>✅ Optional anonymity.</li>
+          <li>✅ Explicit consent if names or profiles are shown.</li>
+        </ul>
+      </div>
+    </div>
+ <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-10">
             Want to be featured here? Email us at <a className="underline" href="mailto:stories@advocateservices.com">stories@advocateservices.com</a><br />
             &copy; {new Date().getFullYear()} AdvocateServices.com – All rights reserved.
           </div>
